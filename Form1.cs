@@ -16,5 +16,11 @@ namespace AudioVideoShop
         {
             InitializeComponent();
         }
+
+        private void GoToShop_Click(object sender, EventArgs e)
+        {
+            Showcase showcase = new Showcase();
+            showcase.Show();
+        }
     }
 }

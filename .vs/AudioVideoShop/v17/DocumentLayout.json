@@ -3,6 +3,26 @@
   "WorkspaceRootPath": "C:\\Users\\sokol\\Documents\\GitHub\\AudioVideoShop\\",
   "Documents": [
     {
+      "AbsoluteMoniker": "D:0:0:{C7348CED-BAE8-4877-9415-9F3040A278C2}|AudioVideoShop.csproj|c:\\users\\sokol\\documents\\github\\audiovideoshop\\showcase\\showcase.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{C7348CED-BAE8-4877-9415-9F3040A278C2}|AudioVideoShop.csproj|solutionrelative:showcase\\showcase.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{C7348CED-BAE8-4877-9415-9F3040A278C2}|AudioVideoShop.csproj|c:\\users\\sokol\\documents\\github\\audiovideoshop\\showcase\\productcard.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{C7348CED-BAE8-4877-9415-9F3040A278C2}|AudioVideoShop.csproj|solutionrelative:showcase\\productcard.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{C7348CED-BAE8-4877-9415-9F3040A278C2}|AudioVideoShop.csproj|c:\\users\\sokol\\documents\\github\\audiovideoshop\\showcase\\productcard.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
+      "RelativeMoniker": "D:0:0:{C7348CED-BAE8-4877-9415-9F3040A278C2}|AudioVideoShop.csproj|solutionrelative:showcase\\productcard.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{C7348CED-BAE8-4877-9415-9F3040A278C2}|AudioVideoShop.csproj|c:\\users\\sokol\\documents\\github\\audiovideoshop\\showcase\\showcase.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
+      "RelativeMoniker": "D:0:0:{C7348CED-BAE8-4877-9415-9F3040A278C2}|AudioVideoShop.csproj|solutionrelative:showcase\\showcase.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{C7348CED-BAE8-4877-9415-9F3040A278C2}|AudioVideoShop.csproj|c:\\users\\sokol\\documents\\github\\audiovideoshop\\form1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{C7348CED-BAE8-4877-9415-9F3040A278C2}|AudioVideoShop.csproj|solutionrelative:form1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
       "AbsoluteMoniker": "D:0:0:{C7348CED-BAE8-4877-9415-9F3040A278C2}|AudioVideoShop.csproj|c:\\users\\sokol\\documents\\github\\audiovideoshop\\form1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
       "RelativeMoniker": "D:0:0:{C7348CED-BAE8-4877-9415-9F3040A278C2}|AudioVideoShop.csproj|solutionrelative:form1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
     }
@@ -14,7 +34,7 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 4,
+          "SelectedChildIndex": 7,
           "Children": [
             {
               "$type": "Bookmark",
@@ -34,7 +54,70 @@
             },
             {
               "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "ProductCard.cs [\u041A\u043E\u043D\u0441\u0442\u0440\u0443\u043A\u0442\u043E\u0440]",
+              "DocumentMoniker": "C:\\Users\\sokol\\Documents\\GitHub\\AudioVideoShop\\Showcase\\ProductCard.cs",
+              "RelativeDocumentMoniker": "Showcase\\ProductCard.cs",
+              "ToolTip": "C:\\Users\\sokol\\Documents\\GitHub\\AudioVideoShop\\Showcase\\ProductCard.cs [\u041A\u043E\u043D\u0441\u0442\u0440\u0443\u043A\u0442\u043E\u0440]",
+              "RelativeToolTip": "Showcase\\ProductCard.cs [\u041A\u043E\u043D\u0441\u0442\u0440\u0443\u043A\u0442\u043E\u0440]",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-04-12T12:06:19.633Z",
+              "EditorCaption": " [\u041A\u043E\u043D\u0441\u0442\u0440\u0443\u043A\u0442\u043E\u0440]"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "ProductCard.cs",
+              "DocumentMoniker": "C:\\Users\\sokol\\Documents\\GitHub\\AudioVideoShop\\Showcase\\ProductCard.cs",
+              "RelativeDocumentMoniker": "Showcase\\ProductCard.cs",
+              "ToolTip": "C:\\Users\\sokol\\Documents\\GitHub\\AudioVideoShop\\Showcase\\ProductCard.cs",
+              "RelativeToolTip": "Showcase\\ProductCard.cs",
+              "ViewState": "AgIAAGsAAAAAAAAAAAAIwGUAAAAiAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-04-12T12:05:08.344Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "Form1.cs",
+              "DocumentMoniker": "C:\\Users\\sokol\\Documents\\GitHub\\AudioVideoShop\\Form1.cs",
+              "RelativeDocumentMoniker": "Form1.cs",
+              "ToolTip": "C:\\Users\\sokol\\Documents\\GitHub\\AudioVideoShop\\Form1.cs",
+              "RelativeToolTip": "Form1.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABYAAAAZAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-04-12T13:15:17.344Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
               "DocumentIndex": 0,
+              "Title": "Showcase.cs",
+              "DocumentMoniker": "C:\\Users\\sokol\\Documents\\GitHub\\AudioVideoShop\\Showcase\\Showcase.cs",
+              "RelativeDocumentMoniker": "Showcase\\Showcase.cs",
+              "ToolTip": "C:\\Users\\sokol\\Documents\\GitHub\\AudioVideoShop\\Showcase\\Showcase.cs",
+              "RelativeToolTip": "Showcase\\Showcase.cs",
+              "ViewState": "AgIAACkAAAAAAAAAAAAwwBYAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-04-12T11:43:15.492Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "Showcase.cs [\u041A\u043E\u043D\u0441\u0442\u0440\u0443\u043A\u0442\u043E\u0440]",
+              "DocumentMoniker": "C:\\Users\\sokol\\Documents\\GitHub\\AudioVideoShop\\Showcase\\Showcase.cs",
+              "RelativeDocumentMoniker": "Showcase\\Showcase.cs",
+              "ToolTip": "C:\\Users\\sokol\\Documents\\GitHub\\AudioVideoShop\\Showcase\\Showcase.cs [\u041A\u043E\u043D\u0441\u0442\u0440\u0443\u043A\u0442\u043E\u0440]",
+              "RelativeToolTip": "Showcase\\Showcase.cs [\u041A\u043E\u043D\u0441\u0442\u0440\u0443\u043A\u0442\u043E\u0440]",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-04-12T09:18:58.777Z",
+              "EditorCaption": " [\u041A\u043E\u043D\u0441\u0442\u0440\u0443\u043A\u0442\u043E\u0440]"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
               "Title": "Form1.cs [\u041A\u043E\u043D\u0441\u0442\u0440\u0443\u043A\u0442\u043E\u0440]",
               "DocumentMoniker": "C:\\Users\\sokol\\Documents\\GitHub\\AudioVideoShop\\Form1.cs",
               "RelativeDocumentMoniker": "Form1.cs",
