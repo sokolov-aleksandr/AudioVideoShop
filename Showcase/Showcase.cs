@@ -80,5 +80,10 @@ namespace AudioVideoShop
                 e.Cancel = true; // Отменяем закрытие
             }
         }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }
