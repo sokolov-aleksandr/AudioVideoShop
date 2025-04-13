@@ -14,6 +14,8 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Data.OleDb;
 using System.IO;
+using System.Diagnostics;
+using System.Xml.Linq;
 
 namespace AudioVideoShop
 {
@@ -30,6 +32,40 @@ namespace AudioVideoShop
         {
             ConnectDatabase();
             UpdateCatalog(connection);
+        }
+
+        public void CreateProduct(string productName, string productCategory,
+            decimal productPrice, bool inStock,
+            string productDescription, string pathToImage)
+        {
+            try
+            {
+                // SQL-запрос на добавление
+                string query = "INSERT INTO Products (productName, category, price, inStock, description, imagePath) " +
+                               "VALUES (@name, @category, @price, @inStock, @description, @imagePath)";
+
+                using (OleDbCommand command = new OleDbCommand(query, connection))
+                {
+                    command.Parameters.AddWithValue("@name", productName);
+                    command.Parameters.AddWithValue("@category", productCategory);
+                    command.Parameters.AddWithValue("@price", productPrice);
+                    command.Parameters.AddWithValue("@inStock", inStock);
+                    command.Parameters.AddWithValue("@description", productDescription);
+                    command.Parameters.AddWithValue("@imagePath", pathToImage);
+
+                    command.ExecuteNonQuery(); // Выполняем SQL-запрос
+                }
+
+                // Добавляем товар на форму (визуально)
+                ProductCard productCard = new ProductCard();
+                productCard.SetProduct(productName, productPrice, pathToImage, inStock);
+                flowLayoutPanelProductCatalog.Controls.Add(productCard);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Ошибка при добавлении товара в базу данных:\n" + ex.Message,
+                    "Ошибка БД", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
 
         private void ConnectDatabase()
@@ -50,10 +86,10 @@ namespace AudioVideoShop
 
             while (reader.Read()) // Читаем по строкам
             {
-                string name = reader["productName"].ToString();     // Название товара
-                decimal price = decimal.Parse(reader["price"].ToString(), 
-                    System.Globalization.CultureInfo.InvariantCulture); // Цена товара (Принудительно меняем культуру, чтобы разделителем была точка, а не запятая)
-                string imagePath = reader["imagePath"].ToString();  // Путь к картинке товара
+                string name = reader["productName"].ToString();             // Название товара
+                decimal price = decimal.Parse(reader["price"].ToString(),   // Цена товара
+                    System.Globalization.CultureInfo.InvariantCulture);     //             (Принудительно меняем культуру, чтобы разделителем была точка, а не запятая)
+                string imagePath = reader["imagePath"].ToString();          // Путь к картинке товара
                 bool inStock = (bool)reader["inStock"];
 
                 ProductCard productCard = new ProductCard(); // Экземпляр карточки товара 
@@ -81,9 +117,11 @@ namespace AudioVideoShop
             }
         }
 
-        private void button1_Click(object sender, EventArgs e)
+        // Добавление нового товара
+        private void button1_Click(object sender, EventArgs e) 
         {
-
+            AddProductForm addProductForm = new AddProductForm(this);
+            addProductForm.ShowDialog();
         }
     }
 }

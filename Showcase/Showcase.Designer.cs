@@ -44,7 +44,7 @@
             // 
             // buttonAddProduct
             // 
-            this.buttonAddProduct.Location = new System.Drawing.Point(682, 100);
+            this.buttonAddProduct.Location = new System.Drawing.Point(682, 125);
             this.buttonAddProduct.Name = "buttonAddProduct";
             this.buttonAddProduct.Size = new System.Drawing.Size(122, 42);
             this.buttonAddProduct.TabIndex = 1;
@@ -54,6 +54,7 @@
             // 
             // flowLayoutPanelProductCatalog
             // 
+            this.flowLayoutPanelProductCatalog.AutoScroll = true;
             this.flowLayoutPanelProductCatalog.Location = new System.Drawing.Point(12, 25);
             this.flowLayoutPanelProductCatalog.Name = "flowLayoutPanelProductCatalog";
             this.flowLayoutPanelProductCatalog.Size = new System.Drawing.Size(627, 548);

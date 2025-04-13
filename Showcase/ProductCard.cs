@@ -93,7 +93,7 @@ namespace AudioVideoShop
         /// </summary>
         /// <param name="name">Имя товара</param>
         /// <param name="price">Цена товара</param>
-        /// <param name="imagePath">Путь к изображению карточки товара</param>
+        /// <param name="imagePath">Относительный путь к изображению карточки товара</param>
         public void SetProduct(string name, decimal price, string imagePath, bool inStock)
         {
             labelNameProduct.Text = name;
