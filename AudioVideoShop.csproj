@@ -80,6 +80,7 @@
     <Compile Include="Showcase\AddProductForm.Designer.cs">
       <DependentUpon>AddProductForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="Showcase\Product.cs" />
     <Compile Include="Showcase\ProductBuyPage.cs">
       <SubType>Form</SubType>
     </Compile>

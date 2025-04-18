@@ -18,17 +18,13 @@ namespace AudioVideoShop
         private Label labelNotInStock;
         private PictureBox pictureBoxProduct;
 
-        public string Name { get; private set; }
-        public decimal Price { get; private set; }
-        public bool InStock { get; private set; }
-        public string Category { get; private set; }
-        public string Decription { get; private set; }
-        public string ImagePath { get; private set; }
-        public string FullImagePath { get; private set; }
+        public Product Product { get; private set; }
+        private string fullImagePath;
 
-        public ProductCard()
+        public ProductCard(Product product)
         {
             InitializeComponent();
+            Product = product;
         }
 
         private void InitializeComponent()
@@ -108,37 +104,30 @@ namespace AudioVideoShop
 
         private void buttonBuy_Click(object sender, EventArgs e) // buttonShow
         {
-            ProductBuyPage buyPage = new ProductBuyPage(this);
+            ProductBuyPage buyPage = new ProductBuyPage(Product, fullImagePath);
             buyPage.ShowDialog();
         }
 
         /// <summary>
         /// Заполнение карточки товара данными
         /// </summary>
-        /// <param name="name">Имя товара</param>
-        /// <param name="price">Цена товара</param>
-        /// <param name="imagePath">Относительный путь к изображению карточки товара</param>
-        public void SetProduct(string name, decimal price, string imagePath, bool inStock, string category, string decription)
+        /// <param name="product">Экземпляр продукта с его свойствами</param>
+        public void SetProduct(Product product)
         {
-            Name = name;
-            Price = price;
-            ImagePath = imagePath;
-            InStock = inStock;
-            Category = category;
-            Decription = decription;
+            Product = product;
             
-            labelNameProduct.Text = name;
-            labelPrice.Text = $"{price} ₽";
+            labelNameProduct.Text = Product.Name;
+            labelPrice.Text = $"{Product.Price} ₽";
             
-            if (imagePath != null)
+            if (Product.ImagePath != null)
             {
-                FullImagePath = Path.Combine(Application.StartupPath, "Data", imagePath); // Получаем абсолютный путь к изображению
+                fullImagePath = Path.Combine(Application.StartupPath, "Data", Product.ImagePath); // Получаем абсолютный путь к изображению
 
-                if (File.Exists(FullImagePath))
+                if (File.Exists(fullImagePath))
                 {
                     try
                     {
-                        pictureBoxProduct.Image = Image.FromFile(FullImagePath);
+                        pictureBoxProduct.Image = Image.FromFile(fullImagePath);
                     }
                     catch (OutOfMemoryException ex)
                     {
@@ -147,10 +136,10 @@ namespace AudioVideoShop
                 }
                 else
                 {
-                    MessageBox.Show("Изображения не существует: " + imagePath, "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MessageBox.Show("Изображения не существует: " + Product.ImagePath, "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
 
-                labelNotInStock.Visible = !inStock;
+                labelNotInStock.Visible = !Product.InStock;
             }
         }
     }

@@ -56,9 +56,12 @@ namespace AudioVideoShop
                     command.ExecuteNonQuery(); // Выполняем SQL-запрос
                 }
 
+                // Создаём сущность продукта
+                Product product = new Product(productName, productPrice, pathToImage, inStock, productCategory, productDescription);
+
                 // Добавляем товар на форму (визуально)
-                ProductCard productCard = new ProductCard();
-                productCard.SetProduct(productName, productPrice, pathToImage, inStock, productCategory, productDescription);
+                ProductCard productCard = new ProductCard(product);
+                productCard.SetProduct(product);
                 flowLayoutPanelProductCatalog.Controls.Add(productCard);
             }
             catch (Exception ex)
@@ -86,16 +89,19 @@ namespace AudioVideoShop
 
             while (reader.Read()) // Читаем по строкам
             {
-                string name = reader["productName"].ToString();             // Название товара
-                decimal price = decimal.Parse(reader["price"].ToString(),   // Цена товара
+                string productName = reader["productName"].ToString();             // Название товара
+                decimal productPrice = decimal.Parse(reader["price"].ToString(),   // Цена товара
                     System.Globalization.CultureInfo.InvariantCulture);     //             (Принудительно меняем культуру, чтобы разделителем была точка, а не запятая)
-                string imagePath = reader["imagePath"].ToString();          // Путь к картинке товара
+                string pathToImage = reader["imagePath"].ToString();          // Путь к картинке товара
                 bool inStock = (bool)reader["inStock"];
                 string productCategory = reader["category"].ToString();
                 string productDescription = reader["description"].ToString();
 
-                ProductCard productCard = new ProductCard(); // Экземпляр карточки товара 
-                productCard.SetProduct(name, price, imagePath, inStock, productCategory, productDescription); // Заполняем информацию
+                // Создаём сущность продукта
+                Product product = new Product(productName, productPrice, pathToImage, inStock, productCategory, productDescription);
+
+                ProductCard productCard = new ProductCard(product); // Экземпляр карточки товара 
+                productCard.SetProduct(product); // Заполняем информацию
                 flowLayoutPanelProductCatalog.Controls.Add(productCard); // Добавляем карточку на панель в форме
             }
             reader.Close(); // Закрываем читатель
