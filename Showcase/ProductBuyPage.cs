@@ -15,17 +15,17 @@ namespace AudioVideoShop
     {
         
         
-        public ProductBuyPage(ProductCard productCard)
+        public ProductBuyPage(Product product, string fullImagePath)
         {
             InitializeComponent();
 
             // Заполняем данные из карточки
-            labelNameProduct.Text = productCard.Name;
-            labelPrice.Text = $"{productCard.Price.ToString()} ₽";
-            textBoxDecription.Text = productCard.Decription;
-            pictureBoxProduct.Image = Image.FromFile(productCard.FullImagePath);
-            labelCategory.Text = productCard.Category;
-            buttonBuy.Enabled = productCard.InStock;
+            labelNameProduct.Text = product.Name;
+            labelPrice.Text = $"{product.Price.ToString()} ₽";
+            textBoxDecription.Text = product.Decription;
+            pictureBoxProduct.Image = Image.FromFile(fullImagePath);
+            labelCategory.Text = product.Category;
+            buttonBuy.Enabled = product.InStock;
         }
 
         private void buttonBuy_Click(object sender, EventArgs e)

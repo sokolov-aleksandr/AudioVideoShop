@@ -13,15 +13,12 @@ namespace AudioVideoShop
 {
     public partial class AddProductForm : Form
     {
-        private string productName = string.Empty;
-        private string productCategory = string.Empty;
-        private decimal productPrice = 0;
-        private bool inStock = false;
-        private string productDescription = string.Empty;
-        private string pathToImage = string.Empty;
+        Product product;
+        private string _imagePath;
 
         private List<TextBox> decimalFields = new List<TextBox>();
         private List<TextBox> requiredFields = new List<TextBox>();
+        private string _pathToNoImage = "NoImage.png"; // Изображение заглушка, если его пользователь не загрузил
 
         private Showcase _showcase; // Ссылка на форму витрины
 
@@ -46,14 +43,21 @@ namespace AudioVideoShop
             if (!isValid)
                 return;
 
-            // Заполняем переменные
-            productName = input_nameProduct.Text;
-            productCategory = comboBoxCategoryProduct.Text;
-            productPrice = decimal.Parse(input_priceProduct.Text); // Уже проводилась проверка на корректность ввода
-            inStock = checkBoxInStock.Checked;
-            productDescription = input_decription.Text;
+            if (_imagePath == null)
+                _imagePath = _pathToNoImage;
 
-            _showcase.CreateProduct(productName, productCategory, productPrice, inStock, productDescription, pathToImage);
+            Product product = new Product(
+                input_nameProduct.Text,
+                decimal.Parse(input_priceProduct.Text),
+                _imagePath,
+                checkBoxInStock.Checked,
+                comboBoxCategoryProduct.Text,
+                input_decription.Text
+            );
+
+
+
+            _showcase.CreateProductCard(product);
             this.Close();
         }
 
@@ -84,7 +88,7 @@ namespace AudioVideoShop
                     File.Copy(originalPath, destPath, true);
 
                     // Сохраняем относительный путь
-                    pathToImage = Path.Combine("Images", fileName);
+                    _imagePath = Path.Combine("Images", fileName);
 
                     // Показываем имя файла в кнопке
                     buttonOpenImage.Text = Path.GetFileName(originalPath);
