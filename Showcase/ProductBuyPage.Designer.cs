@@ -35,6 +35,7 @@
             this.textBoxDecription = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
             this.labelCategory = new System.Windows.Forms.Label();
+            this.label2 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxProduct)).BeginInit();
             this.SuspendLayout();
             // 
@@ -99,18 +100,28 @@
             // 
             this.labelCategory.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.labelCategory.AutoSize = true;
-            this.labelCategory.Location = new System.Drawing.Point(168, 194);
+            this.labelCategory.Location = new System.Drawing.Point(228, 194);
             this.labelCategory.Name = "labelCategory";
             this.labelCategory.RightToLeft = System.Windows.Forms.RightToLeft.No;
             this.labelCategory.Size = new System.Drawing.Size(35, 13);
             this.labelCategory.TabIndex = 7;
             this.labelCategory.Text = "label2";
             // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(165, 194);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(66, 13);
+            this.label2.TabIndex = 8;
+            this.label2.Text = "Категория: ";
+            // 
             // ProductBuyPage
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(539, 223);
+            this.Controls.Add(this.label2);
             this.Controls.Add(this.labelCategory);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.textBoxDecription);
@@ -135,5 +146,6 @@
         private System.Windows.Forms.TextBox textBoxDecription;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label labelCategory;
+        private System.Windows.Forms.Label label2;
     }
 }

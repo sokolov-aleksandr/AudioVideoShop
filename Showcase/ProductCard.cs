@@ -84,7 +84,7 @@ namespace AudioVideoShop
             // 
             this.labelNotInStock.AutoSize = true;
             this.labelNotInStock.ForeColor = System.Drawing.Color.Firebrick;
-            this.labelNotInStock.Location = new System.Drawing.Point(86, 158);
+            this.labelNotInStock.Location = new System.Drawing.Point(7, 225);
             this.labelNotInStock.Name = "labelNotInStock";
             this.labelNotInStock.Size = new System.Drawing.Size(74, 13);
             this.labelNotInStock.TabIndex = 4;
@@ -99,7 +99,7 @@ namespace AudioVideoShop
             this.Controls.Add(this.labelPrice);
             this.Controls.Add(this.pictureBoxProduct);
             this.Name = "ProductCard";
-            this.Size = new System.Drawing.Size(170, 225);
+            this.Size = new System.Drawing.Size(170, 247);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxProduct)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
