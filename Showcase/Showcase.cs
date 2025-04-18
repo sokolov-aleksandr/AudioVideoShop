@@ -70,7 +70,7 @@ namespace AudioVideoShop
 
         private void ConnectDatabase()
         {
-            string dbRelativePath = Path.Combine("Data", "products.accdb");             // Получаем относительный путь базы данных
+            string dbRelativePath = Path.Combine("Data", "Shop.accdb");             // Получаем относительный путь базы данных
             string dbFullPath = Path.Combine(Application.StartupPath, dbRelativePath);  // Делаем из него абсолютный путь
             string connectionString = $"Provider=Microsoft.ACE.OLEDB.12.0;Data Source={dbFullPath};"; // Полный путь соединения до базы данных
             connection = new OleDbConnection(connectionString); // Создаём соединение с базой данных
