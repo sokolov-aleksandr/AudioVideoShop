@@ -151,6 +151,9 @@
     <Content Include="Data\Images\Sony WH-1000XM5 Wireless Headphones.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Include="Data\NoImage.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="Data\Shop.accdb">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>

@@ -18,6 +18,7 @@ namespace AudioVideoShop
 
         private List<TextBox> decimalFields = new List<TextBox>();
         private List<TextBox> requiredFields = new List<TextBox>();
+        private string _pathToNoImage = "NoImage.png"; // Изображение заглушка, если его пользователь не загрузил
 
         private Showcase _showcase; // Ссылка на форму витрины
 
@@ -41,6 +42,9 @@ namespace AudioVideoShop
             bool isValid = ValidateTextBoxes(decimalFields, requiredFields);
             if (!isValid)
                 return;
+
+            if (_imagePath == null)
+                _imagePath = _pathToNoImage;
 
             Product product = new Product(
                 input_nameProduct.Text,
