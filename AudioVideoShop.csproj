@@ -66,6 +66,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Database\AccessDataSource.cs" />
+    <Compile Include="Database\ProductsDataSource.cs" />
     <Compile Include="Form1.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -79,6 +81,13 @@
     </Compile>
     <Compile Include="Showcase\AddProductForm.Designer.cs">
       <DependentUpon>AddProductForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Showcase\Product.cs" />
+    <Compile Include="Showcase\ProductBuyPage.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Showcase\ProductBuyPage.Designer.cs">
+      <DependentUpon>ProductBuyPage.cs</DependentUpon>
     </Compile>
     <Compile Include="Showcase\ProductCard.cs">
       <SubType>UserControl</SubType>
@@ -103,6 +112,9 @@
     </Compile>
     <EmbeddedResource Include="Showcase\AddProductForm.resx">
       <DependentUpon>AddProductForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Showcase\ProductBuyPage.resx">
+      <DependentUpon>ProductBuyPage.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Showcase\ProductCard.resx">
       <DependentUpon>ProductCard.cs</DependentUpon>
@@ -139,9 +151,13 @@
     <Content Include="Data\Images\Sony WH-1000XM5 Wireless Headphones.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Data\products.accdb">
+    <Content Include="Data\NoImage.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Data\Shop.accdb">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

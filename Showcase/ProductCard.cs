@@ -3,6 +3,7 @@ using System.Windows.Forms;
 using System.Drawing;
 using System.ComponentModel;
 using System.IO;
+using AudioVideoShop;
 
 namespace AudioVideoShop
 {
@@ -13,12 +14,17 @@ namespace AudioVideoShop
     {
         private Label labelPrice;
         private Label labelNameProduct;
-        private Button buttonBuy;
+        private Button buttonShow;
+        private Label labelNotInStock;
         private PictureBox pictureBoxProduct;
 
-        public ProductCard()
+        public Product Product { get; private set; }
+        private string fullImagePath;
+
+        public ProductCard(Product product)
         {
             InitializeComponent();
+            Product = product;
         }
 
         private void InitializeComponent()
@@ -26,7 +32,8 @@ namespace AudioVideoShop
             this.pictureBoxProduct = new System.Windows.Forms.PictureBox();
             this.labelPrice = new System.Windows.Forms.Label();
             this.labelNameProduct = new System.Windows.Forms.Label();
-            this.buttonBuy = new System.Windows.Forms.Button();
+            this.buttonShow = new System.Windows.Forms.Button();
+            this.labelNotInStock = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxProduct)).BeginInit();
             this.SuspendLayout();
             // 
@@ -59,55 +66,68 @@ namespace AudioVideoShop
             this.labelNameProduct.TabIndex = 2;
             this.labelNameProduct.Text = "Name";
             // 
-            // buttonBuy
+            // buttonShow
             // 
-            this.buttonBuy.Location = new System.Drawing.Point(10, 199);
-            this.buttonBuy.Name = "buttonBuy";
-            this.buttonBuy.Size = new System.Drawing.Size(150, 23);
-            this.buttonBuy.TabIndex = 3;
-            this.buttonBuy.Text = "Купить";
-            this.buttonBuy.UseVisualStyleBackColor = true;
-            this.buttonBuy.Click += new System.EventHandler(this.buttonBuy_Click);
+            this.buttonShow.Location = new System.Drawing.Point(10, 199);
+            this.buttonShow.Name = "buttonShow";
+            this.buttonShow.Size = new System.Drawing.Size(150, 23);
+            this.buttonShow.TabIndex = 3;
+            this.buttonShow.Text = "Посмотреть";
+            this.buttonShow.UseVisualStyleBackColor = true;
+            this.buttonShow.Click += new System.EventHandler(this.buttonBuy_Click);
+            // 
+            // labelNotInStock
+            // 
+            this.labelNotInStock.AutoSize = true;
+            this.labelNotInStock.ForeColor = System.Drawing.Color.Firebrick;
+            this.labelNotInStock.Location = new System.Drawing.Point(7, 225);
+            this.labelNotInStock.Name = "labelNotInStock";
+            this.labelNotInStock.Size = new System.Drawing.Size(74, 13);
+            this.labelNotInStock.TabIndex = 4;
+            this.labelNotInStock.Text = "Не в наличии";
+            this.labelNotInStock.Visible = false;
             // 
             // ProductCard
             // 
-            this.Controls.Add(this.buttonBuy);
+            this.Controls.Add(this.labelNotInStock);
+            this.Controls.Add(this.buttonShow);
             this.Controls.Add(this.labelNameProduct);
             this.Controls.Add(this.labelPrice);
             this.Controls.Add(this.pictureBoxProduct);
             this.Name = "ProductCard";
-            this.Size = new System.Drawing.Size(170, 225);
+            this.Size = new System.Drawing.Size(170, 247);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxProduct)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
         }
 
-        private void buttonBuy_Click(object sender, EventArgs e)
+        private void buttonBuy_Click(object sender, EventArgs e) // buttonShow
         {
-
+            ProductBuyPage buyPage = new ProductBuyPage(Product, fullImagePath);
+            buyPage.ShowDialog();
         }
 
         /// <summary>
         /// Заполнение карточки товара данными
         /// </summary>
-        /// <param name="name">Имя товара</param>
-        /// <param name="price">Цена товара</param>
-        /// <param name="imagePath">Относительный путь к изображению карточки товара</param>
-        public void SetProduct(string name, decimal price, string imagePath, bool inStock)
+        /// <param name="product">Экземпляр продукта с его свойствами</param>
+        public void SetProduct(Product product)
         {
-            labelNameProduct.Text = name;
-            labelPrice.Text = $"{price} ₽";
+            Product = product;
             
-            if (imagePath != null)
+            labelNameProduct.Text = Product.Name;
+            labelPrice.Text = $"{Product.Price} ₽";
+            
+            if (Product.ImagePath != null)
             {
-                string fullPath = Path.Combine(Application.StartupPath, "Data", imagePath); // Получаем абсолютный путь к изображению
+                fullImagePath = Path.Combine(Application.StartupPath, "Data", Product.ImagePath); // Получаем абсолютный путь к изображению
 
-                if (File.Exists(fullPath))
+                if (File.Exists(fullImagePath))
                 {
                     try
                     {
-                        pictureBoxProduct.Image = Image.FromFile(fullPath);
+                        pictureBoxProduct.Image = Image.FromFile(fullImagePath);
                     }
                     catch (OutOfMemoryException ex)
                     {
@@ -116,12 +136,11 @@ namespace AudioVideoShop
                 }
                 else
                 {
-                    MessageBox.Show("Изображения не существует: " + imagePath, "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MessageBox.Show("Изображения не существует: " + Product.ImagePath, "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
-            }
 
-            // Проверка на наличие товара
-            buttonBuy.Enabled = inStock;
+                labelNotInStock.Visible = !Product.InStock;
+            }
         }
     }
 }
