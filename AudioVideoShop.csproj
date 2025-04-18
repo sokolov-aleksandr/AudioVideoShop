@@ -80,6 +80,12 @@
     <Compile Include="Showcase\AddProductForm.Designer.cs">
       <DependentUpon>AddProductForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="Showcase\ProductBuyPage.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Showcase\ProductBuyPage.Designer.cs">
+      <DependentUpon>ProductBuyPage.cs</DependentUpon>
+    </Compile>
     <Compile Include="Showcase\ProductCard.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -103,6 +109,9 @@
     </Compile>
     <EmbeddedResource Include="Showcase\AddProductForm.resx">
       <DependentUpon>AddProductForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Showcase\ProductBuyPage.resx">
+      <DependentUpon>ProductBuyPage.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Showcase\ProductCard.resx">
       <DependentUpon>ProductCard.cs</DependentUpon>

@@ -58,7 +58,7 @@ namespace AudioVideoShop
 
                 // Добавляем товар на форму (визуально)
                 ProductCard productCard = new ProductCard();
-                productCard.SetProduct(productName, productPrice, pathToImage, inStock);
+                productCard.SetProduct(productName, productPrice, pathToImage, inStock, productCategory, productDescription);
                 flowLayoutPanelProductCatalog.Controls.Add(productCard);
             }
             catch (Exception ex)
@@ -91,9 +91,11 @@ namespace AudioVideoShop
                     System.Globalization.CultureInfo.InvariantCulture);     //             (Принудительно меняем культуру, чтобы разделителем была точка, а не запятая)
                 string imagePath = reader["imagePath"].ToString();          // Путь к картинке товара
                 bool inStock = (bool)reader["inStock"];
+                string productCategory = reader["category"].ToString();
+                string productDescription = reader["description"].ToString();
 
                 ProductCard productCard = new ProductCard(); // Экземпляр карточки товара 
-                productCard.SetProduct(name, price, imagePath, inStock); // Заполняем информацию
+                productCard.SetProduct(name, price, imagePath, inStock, productCategory, productDescription); // Заполняем информацию
                 flowLayoutPanelProductCatalog.Controls.Add(productCard); // Добавляем карточку на панель в форме
             }
             reader.Close(); // Закрываем читатель
