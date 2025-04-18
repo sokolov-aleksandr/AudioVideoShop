@@ -84,6 +84,7 @@
             this.textBoxDecription.Multiline = true;
             this.textBoxDecription.Name = "textBoxDecription";
             this.textBoxDecription.ReadOnly = true;
+            this.textBoxDecription.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
             this.textBoxDecription.Size = new System.Drawing.Size(346, 72);
             this.textBoxDecription.TabIndex = 5;
             // 
