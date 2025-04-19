@@ -34,7 +34,7 @@ namespace AudioVideoShop
             productsData.AddProductToDB(product); // Добавляем товар в базу данных
 
             // Добавляем товар на форму (визуально)
-            ProductCard productCard = new ProductCard(product);
+            ProductCard productCard = new ProductCard(this, product);
             productCard.SetProduct(product);
             flowLayoutPanelProductCatalog.Controls.Add(productCard);
         }
@@ -53,7 +53,7 @@ namespace AudioVideoShop
 
             foreach (var product in products)
             {
-                ProductCard productCard = new ProductCard(product);
+                ProductCard productCard = new ProductCard(this, product);
                 productCard.SetProduct(product);
                 flowLayoutPanelProductCatalog.Controls.Add(productCard);
             }
@@ -86,6 +86,21 @@ namespace AudioVideoShop
                 productsData.Dispose();
             }
         }
+        
+        public void DeleteProductCard(int id)
+        {
+            productsData.DeleteProductById(id); // Удаляем из БД
 
+            // Поиск и удаление визуальной карточки
+            foreach (Control control in flowLayoutPanelProductCatalog.Controls)
+            {
+                if (control is ProductCard card && card.Product.Id == id)
+                {
+                    flowLayoutPanelProductCatalog.Controls.Remove(card);
+                    card.Dispose(); // Освобождаем ресурсы
+                    break;
+                }
+            }
+        }
     }
 }

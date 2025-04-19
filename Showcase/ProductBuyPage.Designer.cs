@@ -36,6 +36,8 @@
             this.label1 = new System.Windows.Forms.Label();
             this.labelCategory = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
+            this.buttonDeleteProduct = new System.Windows.Forms.Button();
+            this.labelID = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxProduct)).BeginInit();
             this.SuspendLayout();
             // 
@@ -117,11 +119,33 @@
             this.label2.TabIndex = 8;
             this.label2.Text = "Категория: ";
             // 
+            // buttonDeleteProduct
+            // 
+            this.buttonDeleteProduct.ForeColor = System.Drawing.Color.Brown;
+            this.buttonDeleteProduct.Location = new System.Drawing.Point(393, 176);
+            this.buttonDeleteProduct.Name = "buttonDeleteProduct";
+            this.buttonDeleteProduct.Size = new System.Drawing.Size(121, 23);
+            this.buttonDeleteProduct.TabIndex = 9;
+            this.buttonDeleteProduct.Text = "Удалить товар";
+            this.buttonDeleteProduct.UseVisualStyleBackColor = true;
+            this.buttonDeleteProduct.Click += new System.EventHandler(this.buttonDeleteProduct_Click);
+            // 
+            // labelID
+            // 
+            this.labelID.AutoSize = true;
+            this.labelID.Location = new System.Drawing.Point(390, 201);
+            this.labelID.Name = "labelID";
+            this.labelID.Size = new System.Drawing.Size(24, 13);
+            this.labelID.TabIndex = 10;
+            this.labelID.Text = "ID: ";
+            // 
             // ProductBuyPage
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(539, 223);
+            this.Controls.Add(this.labelID);
+            this.Controls.Add(this.buttonDeleteProduct);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.labelCategory);
             this.Controls.Add(this.label1);
@@ -148,5 +172,7 @@
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label labelCategory;
         private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.Button buttonDeleteProduct;
+        private System.Windows.Forms.Label labelID;
     }
 }

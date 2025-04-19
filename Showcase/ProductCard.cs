@@ -20,10 +20,12 @@ namespace AudioVideoShop
 
         public Product Product { get; private set; }
         private string fullImagePath;
+        private Showcase _showcase;
 
-        public ProductCard(Product product)
+        public ProductCard(Showcase showcase, Product product)
         {
             InitializeComponent();
+            _showcase = showcase;
             Product = product;
         }
 
@@ -104,7 +106,7 @@ namespace AudioVideoShop
 
         private void buttonBuy_Click(object sender, EventArgs e) // buttonShow
         {
-            ProductBuyPage buyPage = new ProductBuyPage(Product, fullImagePath);
+            ProductBuyPage buyPage = new ProductBuyPage(_showcase, Product, fullImagePath);
             buyPage.ShowDialog();
         }
 

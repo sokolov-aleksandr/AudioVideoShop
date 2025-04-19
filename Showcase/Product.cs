@@ -3,6 +3,7 @@ namespace AudioVideoShop
 {
     public class Product
     {
+        public int Id { get; set; } // Заполняется отдельно
         public string Name { get; set; }
         public decimal Price { get; set; }
         public bool InStock { get; set; }

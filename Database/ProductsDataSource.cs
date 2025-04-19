@@ -30,7 +30,17 @@ namespace AudioVideoShop
                     command.Parameters.AddWithValue("@imagePath", product.ImagePath);
 
                     command.ExecuteNonQuery(); // Выполняем SQL-запрос
-                }            
+                }
+
+                // Получаем ID последней вставленной записи
+                using (OleDbCommand idCommand = new OleDbCommand("SELECT @@IDENTITY", connection))
+                {
+                    object result = idCommand.ExecuteScalar();
+                    if (result != null)
+                    {
+                        product.Id = Convert.ToInt32(result);
+                    }
+                }
             }
             catch (Exception ex)
             {
@@ -50,6 +60,7 @@ namespace AudioVideoShop
             {
                 while (reader.Read()) // Читаем по строкам
                 {
+                    int id = Convert.ToInt32(reader["Код"]); // Получаем ID из Access
                     string productName = reader["productName"].ToString();             // Название товара
                     decimal productPrice = decimal.Parse(reader["price"].ToString(),   // Цена товара
                         System.Globalization.CultureInfo.InvariantCulture);            //           (Принудительно меняем культуру,
@@ -60,6 +71,7 @@ namespace AudioVideoShop
                     string productDescription = reader["description"].ToString();      // Текстовое описание товара
 
                     Product product = new Product(productName, productPrice, pathToImage, inStock, productCategory, productDescription);
+                    product.Id = id;
                     products.Add(product);
                 }
             }
@@ -67,6 +79,30 @@ namespace AudioVideoShop
             return products;
         }
 
+        public void DeleteProductById(int id)
+        {
+            try
+            {
+                string query = "DELETE FROM Products WHERE Код = @id";
+
+                using (OleDbCommand command = new OleDbCommand(query, connection))
+                {
+                    command.Parameters.AddWithValue("@id", id);
+                    int rowsAffected = command.ExecuteNonQuery();
+
+                    if (rowsAffected == 0)
+                    {
+                        MessageBox.Show("Продукт с указанным ID не найден.",
+                            "Удаление", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Ошибка при удалении товара из базы данных:\n" + ex.Message,
+                    "Ошибка БД", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
 
     }
 }
