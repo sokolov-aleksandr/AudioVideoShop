@@ -27,6 +27,7 @@ namespace AudioVideoShop
         {
             productsData = new ProductsDataSource(); // Объявляем тут, чтобы вызвать конструктор создающий соединение с БД
             UpdateCatalog();
+            comboBoxCategoryFilter.SelectedIndex = 0; // По умолчанию — показывать все
         }
 
         public void CreateProductCard(Product product)
@@ -101,6 +102,19 @@ namespace AudioVideoShop
                     break;
                 }
             }
+        }
+
+        private void comboBoxCategoryFilter_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            string selectedCategory = comboBoxCategoryFilter.SelectedItem.ToString();
+            List<Product> allProducts = productsData.LoadProducts();
+
+            if (selectedCategory != "Все")
+            {
+                allProducts = allProducts.Where(p => p.Category == selectedCategory).ToList();
+            }
+
+            UpdateCatalogUI(allProducts);
         }
     }
 }

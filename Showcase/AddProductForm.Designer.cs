@@ -115,6 +115,7 @@
             // 
             // comboBoxCategoryProduct
             // 
+            this.comboBoxCategoryProduct.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.comboBoxCategoryProduct.FormattingEnabled = true;
             this.comboBoxCategoryProduct.Items.AddRange(new object[] {
             "Аудио",
