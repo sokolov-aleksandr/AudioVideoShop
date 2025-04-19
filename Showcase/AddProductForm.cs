@@ -35,6 +35,9 @@ namespace AudioVideoShop
 
             requiredFields.Add(input_nameProduct);
             requiredFields.Add(input_decription);
+
+            // Устанавливаем дефолтный вариант comboBox
+            comboBoxCategoryProduct.SelectedIndex = comboBoxCategoryProduct.Items.Count - 1;
         }
 
         private void buttonAdd_Click(object sender, EventArgs e)
