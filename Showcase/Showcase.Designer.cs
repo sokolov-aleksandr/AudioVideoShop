@@ -33,6 +33,10 @@
             this.flowLayoutPanelProductCatalog = new System.Windows.Forms.FlowLayoutPanel();
             this.label2 = new System.Windows.Forms.Label();
             this.comboBoxCategoryFilter = new System.Windows.Forms.ComboBox();
+            this.usernameLabel = new System.Windows.Forms.Label();
+            this.AdminGroupBox = new System.Windows.Forms.GroupBox();
+            this.CreateUserButton = new System.Windows.Forms.Button();
+            this.AdminGroupBox.SuspendLayout();
             this.SuspendLayout();
             // 
             // label1
@@ -46,9 +50,9 @@
             // 
             // buttonAddProduct
             // 
-            this.buttonAddProduct.Location = new System.Drawing.Point(682, 125);
+            this.buttonAddProduct.Location = new System.Drawing.Point(6, 19);
             this.buttonAddProduct.Name = "buttonAddProduct";
-            this.buttonAddProduct.Size = new System.Drawing.Size(122, 42);
+            this.buttonAddProduct.Size = new System.Drawing.Size(188, 42);
             this.buttonAddProduct.TabIndex = 1;
             this.buttonAddProduct.Text = "Добавить товар";
             this.buttonAddProduct.UseVisualStyleBackColor = true;
@@ -87,20 +91,53 @@
             this.comboBoxCategoryFilter.TabIndex = 4;
             this.comboBoxCategoryFilter.SelectedIndexChanged += new System.EventHandler(this.comboBoxCategoryFilter_SelectedIndexChanged);
             // 
+            // usernameLabel
+            // 
+            this.usernameLabel.AutoSize = true;
+            this.usernameLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.usernameLabel.Location = new System.Drawing.Point(9, 9);
+            this.usernameLabel.Name = "usernameLabel";
+            this.usernameLabel.Size = new System.Drawing.Size(141, 18);
+            this.usernameLabel.TabIndex = 5;
+            this.usernameLabel.Text = "Имя пользователя";
+            // 
+            // AdminGroupBox
+            // 
+            this.AdminGroupBox.Controls.Add(this.CreateUserButton);
+            this.AdminGroupBox.Controls.Add(this.buttonAddProduct);
+            this.AdminGroupBox.Location = new System.Drawing.Point(645, 440);
+            this.AdminGroupBox.Name = "AdminGroupBox";
+            this.AdminGroupBox.Size = new System.Drawing.Size(200, 133);
+            this.AdminGroupBox.TabIndex = 6;
+            this.AdminGroupBox.TabStop = false;
+            this.AdminGroupBox.Text = "Админ панель";
+            // 
+            // CreateUserButton
+            // 
+            this.CreateUserButton.Location = new System.Drawing.Point(6, 67);
+            this.CreateUserButton.Name = "CreateUserButton";
+            this.CreateUserButton.Size = new System.Drawing.Size(188, 42);
+            this.CreateUserButton.TabIndex = 2;
+            this.CreateUserButton.Text = "Создать Пользователя";
+            this.CreateUserButton.UseVisualStyleBackColor = true;
+            this.CreateUserButton.Click += new System.EventHandler(this.CreateUserButton_Click);
+            // 
             // Showcase
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(924, 585);
+            this.ClientSize = new System.Drawing.Size(864, 585);
+            this.Controls.Add(this.AdminGroupBox);
+            this.Controls.Add(this.usernameLabel);
             this.Controls.Add(this.comboBoxCategoryFilter);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.flowLayoutPanelProductCatalog);
-            this.Controls.Add(this.buttonAddProduct);
             this.Controls.Add(this.label1);
             this.Name = "Showcase";
             this.Text = "Showcase";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Showcase_FormClosing);
             this.Load += new System.EventHandler(this.Showcase_Load);
+            this.AdminGroupBox.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -113,5 +150,8 @@
         private System.Windows.Forms.FlowLayoutPanel flowLayoutPanelProductCatalog;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.ComboBox comboBoxCategoryFilter;
+        private System.Windows.Forms.Label usernameLabel;
+        private System.Windows.Forms.GroupBox AdminGroupBox;
+        private System.Windows.Forms.Button CreateUserButton;
     }
 }

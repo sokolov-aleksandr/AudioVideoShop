@@ -156,6 +156,7 @@
             this.Controls.Add(this.buttonBuy);
             this.Name = "ProductBuyPage";
             this.Text = "ProductBuyPage";
+            this.Load += new System.EventHandler(this.ProductBuyPage_Load);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxProduct)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();

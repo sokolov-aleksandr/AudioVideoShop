@@ -11,6 +11,7 @@ using System.Data.OleDb;
 using System.IO;
 using System.Diagnostics;
 using System.Xml.Linq;
+using AudioVideoShop.Login;
 
 namespace AudioVideoShop
 {
@@ -25,9 +26,17 @@ namespace AudioVideoShop
 
         private void Showcase_Load(object sender, EventArgs e)
         {
+            // Обрабатываем интерфейс под роль пользователя
+            HandlingAccountRole(Session.CurrentUser.Role);
+            usernameLabel.Text = Session.CurrentUser.Username;
+            
             productsData = new ProductsDataSource(); // Объявляем тут, чтобы вызвать конструктор создающий соединение с БД
             UpdateCatalog();
             comboBoxCategoryFilter.SelectedIndex = 0; // По умолчанию — показывать все
+
+            // При открытии делаем фокус на эту форму
+            this.BringToFront(); // TODO фикси это, всё равно главной становится главная форма
+            this.Activate();
         }
 
         public void CreateProductCard(Product product)
@@ -115,6 +124,41 @@ namespace AudioVideoShop
             }
 
             UpdateCatalogUI(allProducts);
+        }
+
+        private void HandlingAccountRole(AccountRole role)
+        {
+            var roleActions = new Dictionary<AccountRole, Action>
+            {
+                // Роль Админа
+                [AccountRole.admin] = () =>
+                {
+                    // Действия:
+                    AdminGroupBox.Visible = true;
+                },
+
+                // Роль обычного пользователя (Покупателя)
+                [AccountRole.user] = () =>
+                {
+                    // Действия:
+                    AdminGroupBox.Visible = false;
+                }
+            };
+
+            if (roleActions.TryGetValue(role, out var action))
+            {
+                action.Invoke();
+            }
+            else
+            {
+                MessageBox.Show("Неизвестная роль. \nУкажите роль и её действия!");
+            }
+        }
+
+        private void CreateUserButton_Click(object sender, EventArgs e)
+        {
+            CreateAccount createAccount = new CreateAccount(Session.CurrentUser.Role);
+            createAccount.ShowDialog();
         }
     }
 }
