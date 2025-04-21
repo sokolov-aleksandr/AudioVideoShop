@@ -32,6 +32,11 @@ namespace AudioVideoShop
             labelID.Text += product.Id.ToString();
         }
 
+        private void ProductBuyPage_Load(object sender, EventArgs e)
+        {
+            HandlingAccountRole(Session.CurrentUser.Role);
+        }
+
         private void buttonBuy_Click(object sender, EventArgs e)
         {
 
@@ -53,5 +58,38 @@ namespace AudioVideoShop
             }
 
         }
+
+        private void HandlingAccountRole(AccountRole role)
+        {
+            var roleActions = new Dictionary<AccountRole, Action>
+            {
+                // Роль Админа
+                [AccountRole.admin] = () =>
+                {
+                    // Действия:
+                    buttonDeleteProduct.Visible = true;
+                    labelID.Visible = true;
+                },
+
+                // Роль обычного пользователя (Покупателя)
+                [AccountRole.user] = () =>
+                {
+                    // Действия:
+                    buttonDeleteProduct.Visible = false;
+                    labelID.Visible = false;
+                }
+            };
+
+            if (roleActions.TryGetValue(role, out var action))
+            {
+                action.Invoke();
+            }
+            else
+            {
+                MessageBox.Show("Неизвестная роль. \nУкажите роль и её действия!");
+            }
+        }
+
+
     }
 }

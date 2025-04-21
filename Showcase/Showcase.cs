@@ -25,6 +25,9 @@ namespace AudioVideoShop
 
         private void Showcase_Load(object sender, EventArgs e)
         {
+            // Обрабатываем интерфейс под роль пользователя
+            HandlingAccountRole(Session.CurrentUser.Role);
+            
             productsData = new ProductsDataSource(); // Объявляем тут, чтобы вызвать конструктор создающий соединение с БД
             UpdateCatalog();
             comboBoxCategoryFilter.SelectedIndex = 0; // По умолчанию — показывать все
@@ -119,6 +122,35 @@ namespace AudioVideoShop
             }
 
             UpdateCatalogUI(allProducts);
+        }
+
+        private void HandlingAccountRole(AccountRole role)
+        {
+            var roleActions = new Dictionary<AccountRole, Action>
+            {
+                // Роль Админа
+                [AccountRole.admin] = () =>
+                {
+                    // Действия:
+                    buttonAddProduct.Visible = true;
+                },
+
+                // Роль обычного пользователя (Покупателя)
+                [AccountRole.user] = () =>
+                {
+                    // Действия:
+                    buttonAddProduct.Visible = false;
+                }
+            };
+
+            if (roleActions.TryGetValue(role, out var action))
+            {
+                action.Invoke();
+            }
+            else
+            {
+                MessageBox.Show("Неизвестная роль. \nУкажите роль и её действия!");
+            }
         }
     }
 }
