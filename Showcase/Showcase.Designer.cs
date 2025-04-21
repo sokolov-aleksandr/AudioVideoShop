@@ -35,6 +35,7 @@
             this.comboBoxCategoryFilter = new System.Windows.Forms.ComboBox();
             this.usernameLabel = new System.Windows.Forms.Label();
             this.AdminGroupBox = new System.Windows.Forms.GroupBox();
+            this.CreateUserButton = new System.Windows.Forms.Button();
             this.AdminGroupBox.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -92,7 +93,6 @@
             // 
             // usernameLabel
             // 
-            this.usernameLabel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.usernameLabel.AutoSize = true;
             this.usernameLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.usernameLabel.Location = new System.Drawing.Point(9, 9);
@@ -100,23 +100,33 @@
             this.usernameLabel.Size = new System.Drawing.Size(141, 18);
             this.usernameLabel.TabIndex = 5;
             this.usernameLabel.Text = "Имя пользователя";
-            this.usernameLabel.TextAlign = System.Drawing.ContentAlignment.TopRight;
             // 
             // AdminGroupBox
             // 
+            this.AdminGroupBox.Controls.Add(this.CreateUserButton);
             this.AdminGroupBox.Controls.Add(this.buttonAddProduct);
-            this.AdminGroupBox.Location = new System.Drawing.Point(645, 51);
+            this.AdminGroupBox.Location = new System.Drawing.Point(645, 440);
             this.AdminGroupBox.Name = "AdminGroupBox";
             this.AdminGroupBox.Size = new System.Drawing.Size(200, 133);
             this.AdminGroupBox.TabIndex = 6;
             this.AdminGroupBox.TabStop = false;
             this.AdminGroupBox.Text = "Админ панель";
             // 
+            // CreateUserButton
+            // 
+            this.CreateUserButton.Location = new System.Drawing.Point(6, 67);
+            this.CreateUserButton.Name = "CreateUserButton";
+            this.CreateUserButton.Size = new System.Drawing.Size(188, 42);
+            this.CreateUserButton.TabIndex = 2;
+            this.CreateUserButton.Text = "Создать Пользователя";
+            this.CreateUserButton.UseVisualStyleBackColor = true;
+            this.CreateUserButton.Click += new System.EventHandler(this.CreateUserButton_Click);
+            // 
             // Showcase
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(924, 585);
+            this.ClientSize = new System.Drawing.Size(864, 585);
             this.Controls.Add(this.AdminGroupBox);
             this.Controls.Add(this.usernameLabel);
             this.Controls.Add(this.comboBoxCategoryFilter);
@@ -142,5 +152,6 @@
         private System.Windows.Forms.ComboBox comboBoxCategoryFilter;
         private System.Windows.Forms.Label usernameLabel;
         private System.Windows.Forms.GroupBox AdminGroupBox;
+        private System.Windows.Forms.Button CreateUserButton;
     }
 }

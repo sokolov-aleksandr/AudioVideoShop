@@ -11,6 +11,7 @@ using System.Data.OleDb;
 using System.IO;
 using System.Diagnostics;
 using System.Xml.Linq;
+using AudioVideoShop.Login;
 
 namespace AudioVideoShop
 {
@@ -152,6 +153,12 @@ namespace AudioVideoShop
             {
                 MessageBox.Show("Неизвестная роль. \nУкажите роль и её действия!");
             }
+        }
+
+        private void CreateUserButton_Click(object sender, EventArgs e)
+        {
+            CreateAccount createAccount = new CreateAccount(Session.CurrentUser.Role);
+            createAccount.ShowDialog();
         }
     }
 }

@@ -23,7 +23,7 @@ namespace AudioVideoShop
         {
             account = null;
 
-            string query = "SELECT Username, Password, Role FROM Accounts WHERE Username = ?";
+            string query = "SELECT Username, UserPassword, Role FROM Accounts WHERE Username = ?";
 
             using (var command = new OleDbCommand(query, connection))
             {
@@ -33,7 +33,7 @@ namespace AudioVideoShop
                 {
                     if (reader.Read())
                     {
-                        string passwordFromDB = reader["Password"].ToString();
+                        string passwordFromDB = reader["UserPassword"].ToString();
 
                         if (password == passwordFromDB) // TODO: Добавь хэширование
                         {
@@ -52,9 +52,18 @@ namespace AudioVideoShop
             return false;
         }
 
-        public void CreateAccountInDB(Account account)
-        {
-            throw new NotImplementedException();
+        public void CreateAccountInDB(string username, string password, AccountRole role)
+        {          
+            // SQL-запрос на вставку данных
+            string query = "INSERT INTO Accounts (Username, UserPassword, Role) VALUES (?, ?, ?)";
+            using (var command = new OleDbCommand(query, connection))
+            {
+                command.Parameters.AddWithValue("?", username);
+                command.Parameters.AddWithValue("?", password);
+                command.Parameters.AddWithValue("?", role.ToString());
+
+                command.ExecuteNonQuery();
+            }
         }
     }
 }
