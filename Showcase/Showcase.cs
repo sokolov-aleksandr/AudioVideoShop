@@ -27,6 +27,7 @@ namespace AudioVideoShop
         {
             // Обрабатываем интерфейс под роль пользователя
             HandlingAccountRole(Session.CurrentUser.Role);
+            usernameLabel.Text = Session.CurrentUser.Username;
             
             productsData = new ProductsDataSource(); // Объявляем тут, чтобы вызвать конструктор создающий соединение с БД
             UpdateCatalog();

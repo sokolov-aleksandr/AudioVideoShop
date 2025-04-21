@@ -33,6 +33,7 @@
             this.flowLayoutPanelProductCatalog = new System.Windows.Forms.FlowLayoutPanel();
             this.label2 = new System.Windows.Forms.Label();
             this.comboBoxCategoryFilter = new System.Windows.Forms.ComboBox();
+            this.usernameLabel = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // label1
@@ -87,11 +88,24 @@
             this.comboBoxCategoryFilter.TabIndex = 4;
             this.comboBoxCategoryFilter.SelectedIndexChanged += new System.EventHandler(this.comboBoxCategoryFilter_SelectedIndexChanged);
             // 
+            // usernameLabel
+            // 
+            this.usernameLabel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.usernameLabel.AutoSize = true;
+            this.usernameLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.usernameLabel.Location = new System.Drawing.Point(9, 9);
+            this.usernameLabel.Name = "usernameLabel";
+            this.usernameLabel.Size = new System.Drawing.Size(141, 18);
+            this.usernameLabel.TabIndex = 5;
+            this.usernameLabel.Text = "Имя пользователя";
+            this.usernameLabel.TextAlign = System.Drawing.ContentAlignment.TopRight;
+            // 
             // Showcase
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(924, 585);
+            this.Controls.Add(this.usernameLabel);
             this.Controls.Add(this.comboBoxCategoryFilter);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.flowLayoutPanelProductCatalog);
@@ -113,5 +127,6 @@
         private System.Windows.Forms.FlowLayoutPanel flowLayoutPanelProductCatalog;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.ComboBox comboBoxCategoryFilter;
+        private System.Windows.Forms.Label usernameLabel;
     }
 }

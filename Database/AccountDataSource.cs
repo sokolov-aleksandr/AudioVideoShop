@@ -51,5 +51,10 @@ namespace AudioVideoShop
 
             return false;
         }
+
+        public void CreateAccountInDB(Account account)
+        {
+            throw new NotImplementedException();
+        }
     }
 }
