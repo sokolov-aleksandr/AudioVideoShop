@@ -133,14 +133,14 @@ namespace AudioVideoShop
                 [AccountRole.admin] = () =>
                 {
                     // Действия:
-                    buttonAddProduct.Visible = true;
+                    AdminGroupBox.Visible = true;
                 },
 
                 // Роль обычного пользователя (Покупателя)
                 [AccountRole.user] = () =>
                 {
                     // Действия:
-                    buttonAddProduct.Visible = false;
+                    AdminGroupBox.Visible = false;
                 }
             };
 

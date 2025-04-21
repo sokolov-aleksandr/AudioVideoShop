@@ -34,6 +34,8 @@
             this.label2 = new System.Windows.Forms.Label();
             this.comboBoxCategoryFilter = new System.Windows.Forms.ComboBox();
             this.usernameLabel = new System.Windows.Forms.Label();
+            this.AdminGroupBox = new System.Windows.Forms.GroupBox();
+            this.AdminGroupBox.SuspendLayout();
             this.SuspendLayout();
             // 
             // label1
@@ -47,9 +49,9 @@
             // 
             // buttonAddProduct
             // 
-            this.buttonAddProduct.Location = new System.Drawing.Point(682, 125);
+            this.buttonAddProduct.Location = new System.Drawing.Point(6, 19);
             this.buttonAddProduct.Name = "buttonAddProduct";
-            this.buttonAddProduct.Size = new System.Drawing.Size(122, 42);
+            this.buttonAddProduct.Size = new System.Drawing.Size(188, 42);
             this.buttonAddProduct.TabIndex = 1;
             this.buttonAddProduct.Text = "Добавить товар";
             this.buttonAddProduct.UseVisualStyleBackColor = true;
@@ -100,21 +102,32 @@
             this.usernameLabel.Text = "Имя пользователя";
             this.usernameLabel.TextAlign = System.Drawing.ContentAlignment.TopRight;
             // 
+            // AdminGroupBox
+            // 
+            this.AdminGroupBox.Controls.Add(this.buttonAddProduct);
+            this.AdminGroupBox.Location = new System.Drawing.Point(645, 51);
+            this.AdminGroupBox.Name = "AdminGroupBox";
+            this.AdminGroupBox.Size = new System.Drawing.Size(200, 133);
+            this.AdminGroupBox.TabIndex = 6;
+            this.AdminGroupBox.TabStop = false;
+            this.AdminGroupBox.Text = "Админ панель";
+            // 
             // Showcase
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(924, 585);
+            this.Controls.Add(this.AdminGroupBox);
             this.Controls.Add(this.usernameLabel);
             this.Controls.Add(this.comboBoxCategoryFilter);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.flowLayoutPanelProductCatalog);
-            this.Controls.Add(this.buttonAddProduct);
             this.Controls.Add(this.label1);
             this.Name = "Showcase";
             this.Text = "Showcase";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Showcase_FormClosing);
             this.Load += new System.EventHandler(this.Showcase_Load);
+            this.AdminGroupBox.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -128,5 +141,6 @@
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.ComboBox comboBoxCategoryFilter;
         private System.Windows.Forms.Label usernameLabel;
+        private System.Windows.Forms.GroupBox AdminGroupBox;
     }
 }
