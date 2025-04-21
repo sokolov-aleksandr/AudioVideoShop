@@ -28,6 +28,10 @@ namespace AudioVideoShop
             productsData = new ProductsDataSource(); // Объявляем тут, чтобы вызвать конструктор создающий соединение с БД
             UpdateCatalog();
             comboBoxCategoryFilter.SelectedIndex = 0; // По умолчанию — показывать все
+
+            // При открытии делаем фокус на эту форму
+            this.BringToFront(); // TODO фикси это, всё равно главной становится главная форма
+            this.Activate();
         }
 
         public void CreateProductCard(Product product)

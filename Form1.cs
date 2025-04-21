@@ -22,5 +22,11 @@ namespace AudioVideoShop
             Showcase showcase = new Showcase();
             showcase.Show();
         }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            LoginForm loginForm = new LoginForm();
+            loginForm.ShowDialog();
+        }
     }
 }
