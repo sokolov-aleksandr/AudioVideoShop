@@ -18,6 +18,7 @@ namespace AudioVideoShop
     public partial class Showcase : Form
     {
         ProductsDataSource productsData; // Класс для работы с БД
+        AccountDataSource accountsData;
 
         public Showcase()
         {
@@ -29,7 +30,8 @@ namespace AudioVideoShop
             // Обрабатываем интерфейс под роль пользователя
             HandlingAccountRole(Session.CurrentUser.Role);
             usernameLabel.Text = Session.CurrentUser.Username;
-            
+
+            accountsData = new AccountDataSource();
             productsData = new ProductsDataSource(); // Объявляем тут, чтобы вызвать конструктор создающий соединение с БД
             UpdateCatalog();
             comboBoxCategoryFilter.SelectedIndex = 0; // По умолчанию — показывать все
@@ -157,7 +159,7 @@ namespace AudioVideoShop
 
         private void CreateUserButton_Click(object sender, EventArgs e)
         {
-            CreateAccount createAccount = new CreateAccount(Session.CurrentUser.Role);
+            CreateAccount createAccount = new CreateAccount(accountsData, Session.CurrentUser.Role);
             createAccount.ShowDialog();
         }
     }
