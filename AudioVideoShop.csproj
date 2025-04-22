@@ -99,6 +99,20 @@
     <Compile Include="Showcase\AddProductForm.Designer.cs">
       <DependentUpon>AddProductForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="Showcase\Cart\CartForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Showcase\Cart\CartForm.Designer.cs">
+      <DependentUpon>CartForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Showcase\Cart\Cart.cs" />
+    <Compile Include="Showcase\Cart\CartItem.cs" />
+    <Compile Include="Showcase\Cart\CartItemUC.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Showcase\Cart\CartItemUC.Designer.cs">
+      <DependentUpon>CartItemUC.cs</DependentUpon>
+    </Compile>
     <Compile Include="Showcase\Product.cs" />
     <Compile Include="Showcase\ProductBuyPage.cs">
       <SubType>Form</SubType>
@@ -135,6 +149,12 @@
     </Compile>
     <EmbeddedResource Include="Showcase\AddProductForm.resx">
       <DependentUpon>AddProductForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Showcase\Cart\CartForm.resx">
+      <DependentUpon>CartForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Showcase\Cart\CartItemUC.resx">
+      <DependentUpon>CartItemUC.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Showcase\ProductBuyPage.resx">
       <DependentUpon>ProductBuyPage.cs</DependentUpon>

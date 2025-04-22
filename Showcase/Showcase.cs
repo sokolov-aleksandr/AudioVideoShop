@@ -115,6 +115,11 @@ namespace AudioVideoShop
             }
         }
 
+        public void AddToCart(Product product)
+        {
+            Session.CurrentUser.Cart.AddItem(product);
+        }
+
         private void comboBoxCategoryFilter_SelectedIndexChanged(object sender, EventArgs e)
         {
             string selectedCategory = comboBoxCategoryFilter.SelectedItem.ToString();
@@ -161,6 +166,12 @@ namespace AudioVideoShop
         {
             CreateAccount createAccount = new CreateAccount(accountsData, Session.CurrentUser.Role);
             createAccount.ShowDialog();
+        }
+
+        private void buttonOpenCart_Click(object sender, EventArgs e)
+        {
+            CartForm cartForm = new CartForm(Session.CurrentUser.Cart);
+            cartForm.ShowDialog();
         }
     }
 }

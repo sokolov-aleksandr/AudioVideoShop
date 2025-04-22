@@ -19,5 +19,7 @@ namespace AudioVideoShop
 
         public string Username { get; set; }
         public AccountRole Role { get; set; }
+
+        public Cart Cart { get; set; } = new Cart();
     }
 }
