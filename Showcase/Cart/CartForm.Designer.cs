@@ -31,6 +31,8 @@
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.flowLayoutPanel1 = new System.Windows.Forms.FlowLayoutPanel();
             this.buttonClear = new System.Windows.Forms.Button();
+            this.buttonBuy = new System.Windows.Forms.Button();
+            this.labelTotalPrice = new System.Windows.Forms.Label();
             this.groupBox1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -61,18 +63,41 @@
             this.buttonClear.UseVisualStyleBackColor = true;
             this.buttonClear.Click += new System.EventHandler(this.buttonClear_Click);
             // 
-            // CardForm
+            // buttonBuy
+            // 
+            this.buttonBuy.Location = new System.Drawing.Point(461, 468);
+            this.buttonBuy.Name = "buttonBuy";
+            this.buttonBuy.Size = new System.Drawing.Size(121, 42);
+            this.buttonBuy.TabIndex = 2;
+            this.buttonBuy.Text = "Купить";
+            this.buttonBuy.UseVisualStyleBackColor = true;
+            this.buttonBuy.Click += new System.EventHandler(this.buttonBuy_Click);
+            // 
+            // labelTotalPrice
+            // 
+            this.labelTotalPrice.AutoSize = true;
+            this.labelTotalPrice.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.labelTotalPrice.Location = new System.Drawing.Point(458, 447);
+            this.labelTotalPrice.Name = "labelTotalPrice";
+            this.labelTotalPrice.Size = new System.Drawing.Size(35, 18);
+            this.labelTotalPrice.TabIndex = 3;
+            this.labelTotalPrice.Text = "000";
+            // 
+            // CartForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(600, 465);
+            this.ClientSize = new System.Drawing.Size(600, 522);
+            this.Controls.Add(this.labelTotalPrice);
+            this.Controls.Add(this.buttonBuy);
             this.Controls.Add(this.buttonClear);
             this.Controls.Add(this.groupBox1);
-            this.Name = "CardForm";
-            this.Text = "CardForm";
+            this.Name = "CartForm";
+            this.Text = " ";
             this.Load += new System.EventHandler(this.CardForm_Load);
             this.groupBox1.ResumeLayout(false);
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
@@ -81,5 +106,7 @@
         private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.FlowLayoutPanel flowLayoutPanel1;
         private System.Windows.Forms.Button buttonClear;
+        private System.Windows.Forms.Button buttonBuy;
+        private System.Windows.Forms.Label labelTotalPrice;
     }
 }

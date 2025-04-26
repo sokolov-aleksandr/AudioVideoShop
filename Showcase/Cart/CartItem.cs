@@ -8,7 +8,7 @@ namespace AudioVideoShop
 {
     public class CartItem
     {
-        public Product product { get; set; }
-        public int Count { get; set; }
+        public Product Product { get; set; }
+        public int Quantity { get; set; }
     }
 }

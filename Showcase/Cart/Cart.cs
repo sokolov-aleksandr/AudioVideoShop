@@ -17,32 +17,35 @@ namespace AudioVideoShop
         public void AddItem(Product product)
         {
             // Проверяем, есть ли уже такой товар в корзине
-            var existingItem = Items.FirstOrDefault(i => i.product.Id == product.Id);
+            var existingItem = Items.FirstOrDefault(i => i.Product.Id == product.Id);
 
             if (existingItem != null)
             {
-                existingItem.Count++; // увеличиваем количество
+                existingItem.Quantity++; // увеличиваем количество
             }
             else
             {
-                Items.Add(new CartItem { product = product, Count = 1 });
+                Items.Add(new CartItem { Product = product, Quantity = 1 });
             }
         }
 
-        public void RemoveItem(Product product)
+        public void RemoveItem(Product product, int quantityToRemove = 1)
         {
-            var existingItem = Items.FirstOrDefault(i => i.product.Id == product.Id);
+            var existingItem = Items.FirstOrDefault(i => i.Product.Id == product.Id);
 
             if (existingItem != null)
             {
-                existingItem.Count--;
-
-                if (existingItem.Count <= 0)
+                if (quantityToRemove >= existingItem.Quantity)
                 {
                     Items.Remove(existingItem);
                 }
+                else
+                {
+                    existingItem.Quantity -= quantityToRemove;
+                }
             }
         }
+
 
         public void Clear()
         {

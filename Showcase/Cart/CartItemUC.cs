@@ -13,27 +13,35 @@ namespace AudioVideoShop
 {
     public partial class CartItemUC : UserControl
     {
-        CartItem _cartItem;
+        public CartItem CartItem;
+        CartForm _form;
 
-        public CartItemUC()
+        public CartItemUC(CartForm form)
         {
             InitializeComponent();
+            _form = form;
         }
 
         private void RemoveButton_Click(object sender, EventArgs e)
         {
+            _form.RemoveItem(this);
+            UpdateCountLabel();
+        }
 
+        private void UpdateCountLabel()
+        {
+            CountLabel.Text = $"Количество: {CartItem.Quantity.ToString()}";
         }
 
         public void SetItemUI(CartItem cartItem)
         {
-            _cartItem = cartItem;
-            var product = cartItem.product;
+            CartItem = cartItem;
+            var product = cartItem.Product;
 
             NameLabel.Text = product.Name;
             PriceLabel.Text = $"{product.Price} ₽";
             CategoryLabel.Text = product.Category;
-            CountLabel.Text += cartItem.Count.ToString();
+            UpdateCountLabel();
 
             string fullImagePath;
             if (product.ImagePath != null)
