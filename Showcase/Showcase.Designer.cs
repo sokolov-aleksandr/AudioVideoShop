@@ -36,6 +36,7 @@
             this.usernameLabel = new System.Windows.Forms.Label();
             this.AdminGroupBox = new System.Windows.Forms.GroupBox();
             this.CreateUserButton = new System.Windows.Forms.Button();
+            this.buttonOpenCart = new System.Windows.Forms.Button();
             this.AdminGroupBox.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -95,7 +96,7 @@
             // 
             this.usernameLabel.AutoSize = true;
             this.usernameLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.usernameLabel.Location = new System.Drawing.Point(9, 9);
+            this.usernameLabel.Location = new System.Drawing.Point(654, 31);
             this.usernameLabel.Name = "usernameLabel";
             this.usernameLabel.Size = new System.Drawing.Size(141, 18);
             this.usernameLabel.TabIndex = 5;
@@ -122,11 +123,22 @@
             this.CreateUserButton.UseVisualStyleBackColor = true;
             this.CreateUserButton.Click += new System.EventHandler(this.CreateUserButton_Click);
             // 
+            // buttonOpenCart
+            // 
+            this.buttonOpenCart.Location = new System.Drawing.Point(657, 51);
+            this.buttonOpenCart.Name = "buttonOpenCart";
+            this.buttonOpenCart.Size = new System.Drawing.Size(188, 42);
+            this.buttonOpenCart.TabIndex = 3;
+            this.buttonOpenCart.Text = "Открыть корзину";
+            this.buttonOpenCart.UseVisualStyleBackColor = true;
+            this.buttonOpenCart.Click += new System.EventHandler(this.buttonOpenCart_Click);
+            // 
             // Showcase
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(864, 585);
+            this.Controls.Add(this.buttonOpenCart);
             this.Controls.Add(this.AdminGroupBox);
             this.Controls.Add(this.usernameLabel);
             this.Controls.Add(this.comboBoxCategoryFilter);
@@ -153,5 +165,6 @@
         private System.Windows.Forms.Label usernameLabel;
         private System.Windows.Forms.GroupBox AdminGroupBox;
         private System.Windows.Forms.Button CreateUserButton;
+        private System.Windows.Forms.Button buttonOpenCart;
     }
 }

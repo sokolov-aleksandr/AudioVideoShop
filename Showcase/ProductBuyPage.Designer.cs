@@ -47,7 +47,7 @@
             this.buttonBuy.Name = "buttonBuy";
             this.buttonBuy.Size = new System.Drawing.Size(150, 39);
             this.buttonBuy.TabIndex = 0;
-            this.buttonBuy.Text = "Купить";
+            this.buttonBuy.Text = "В корзину";
             this.buttonBuy.UseVisualStyleBackColor = true;
             this.buttonBuy.Click += new System.EventHandler(this.buttonBuy_Click);
             // 

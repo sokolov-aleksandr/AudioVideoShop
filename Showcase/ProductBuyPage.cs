@@ -39,7 +39,7 @@ namespace AudioVideoShop
 
         private void buttonBuy_Click(object sender, EventArgs e)
         {
-
+            _showcase.AddToCart(_product);
         }
 
         private void buttonDeleteProduct_Click(object sender, EventArgs e)
