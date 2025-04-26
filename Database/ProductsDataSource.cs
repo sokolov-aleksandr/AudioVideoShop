@@ -16,20 +16,29 @@ namespace AudioVideoShop
         {
             try
             {
+                // Найти ID категории по названию
+                int categoryId = GetCategoryIdByName(product.Category);
+                if (categoryId == -1)
+                {
+                    MessageBox.Show("Категория '" + product.Category + "' не найдена в базе данных.",
+                        "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return;
+                }
+
                 // SQL-запрос на добавление
-                string query = "INSERT INTO Products (productName, category, price, inStock, description, imagePath) " +
-                               "VALUES (@name, @category, @price, @inStock, @description, @imagePath)";
+                string query = "INSERT INTO Products (productName, categoryID, price, inStock, description, imagePath) " +
+                               "VALUES (@name, @categoryID, @price, @inStock, @description, @imagePath)";
 
                 using (OleDbCommand command = new OleDbCommand(query, connection))
                 {
                     command.Parameters.AddWithValue("@name", product.Name);
-                    command.Parameters.AddWithValue("@category", product.Category);
+                    command.Parameters.AddWithValue("@categoryID", categoryId);
                     command.Parameters.AddWithValue("@price", product.Price);
                     command.Parameters.AddWithValue("@inStock", product.InStock);
                     command.Parameters.AddWithValue("@description", product.Decription);
                     command.Parameters.AddWithValue("@imagePath", product.ImagePath);
 
-                    command.ExecuteNonQuery(); // Выполняем SQL-запрос
+                    command.ExecuteNonQuery();
                 }
 
                 // Получаем ID последней вставленной записи
@@ -49,11 +58,30 @@ namespace AudioVideoShop
             }
         }
 
+        private int GetCategoryIdByName(string categoryName)
+        {
+            string query = "SELECT ID FROM Categories WHERE categoryName = @name";
+            using (OleDbCommand command = new OleDbCommand(query, connection))
+            {
+                command.Parameters.AddWithValue("@name", categoryName);
+
+                object result = command.ExecuteScalar();
+                if (result != null)
+                    return Convert.ToInt32(result);
+                else
+                    return -1; // Категория не найдена
+            }
+        }
+
+
         public List<Product> LoadProducts()
         {
             var products = new List<Product>();
 
-            string query = "SELECT * FROM Products"; // SQL-запрос для получения ВСЕХ значений из таблицы Products
+            string query = "SELECT Products.Код, Products.productName, Products.price, Products.imagePath, " +
+               "Products.inStock, Products.description, Categories.categoryName " +
+               "FROM Products " +
+               "INNER JOIN Categories ON Products.categoryID = Categories.ID"; // SQL-запрос для получения ВСЕХ значений из таблицы Products
             OleDbCommand command = new OleDbCommand(query, connection); // Создаём команду на выполнение запроса с открытым соединением
 
             using (OleDbDataReader reader = command.ExecuteReader()) // Создаём читатель
@@ -67,7 +95,7 @@ namespace AudioVideoShop
                                                                                        //           чтобы разделителем была точка, а не запятая)
                     string pathToImage = reader["imagePath"].ToString();               // Путь к картинке товара
                     bool inStock = (bool)reader["inStock"];                            // Товар в наличии или нет 
-                    string productCategory = reader["category"].ToString();            // Категория товара
+                    string productCategory = reader["categoryName"].ToString();            // Категория товара
                     string productDescription = reader["description"].ToString();      // Текстовое описание товара
 
                     Product product = new Product(productName, productPrice, pathToImage, inStock, productCategory, productDescription);
