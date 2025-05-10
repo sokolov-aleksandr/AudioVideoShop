@@ -53,7 +53,7 @@ namespace AudioVideoShop
                 input_nameProduct.Text,
                 decimal.Parse(input_priceProduct.Text),
                 _imagePath,
-                checkBoxInStock.Checked,
+                int.Parse(textBoxQuantity.Text),
                 comboBoxCategoryProduct.Text,
                 input_decription.Text
             );

@@ -81,13 +81,12 @@ namespace AudioVideoShop
             // labelNotInStock
             // 
             this.labelNotInStock.AutoSize = true;
-            this.labelNotInStock.ForeColor = System.Drawing.Color.Firebrick;
+            this.labelNotInStock.ForeColor = System.Drawing.Color.Black;
             this.labelNotInStock.Location = new System.Drawing.Point(7, 225);
             this.labelNotInStock.Name = "labelNotInStock";
-            this.labelNotInStock.Size = new System.Drawing.Size(74, 13);
+            this.labelNotInStock.Size = new System.Drawing.Size(72, 13);
             this.labelNotInStock.TabIndex = 4;
-            this.labelNotInStock.Text = "Не в наличии";
-            this.labelNotInStock.Visible = false;
+            this.labelNotInStock.Text = "Количество: ";
             // 
             // ProductCard
             // 
@@ -141,7 +140,8 @@ namespace AudioVideoShop
                     MessageBox.Show("Изображения не существует: " + Product.ImagePath, "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
 
-                labelNotInStock.Visible = !Product.InStock;
+                labelNotInStock.Text += Product.Quantity;
+                labelNotInStock.ForeColor = Product.Quantity <= 0 ? Color.Red : Color.Black;
             }
         }
     }

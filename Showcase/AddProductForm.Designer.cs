@@ -35,13 +35,14 @@
             this.label2 = new System.Windows.Forms.Label();
             this.input_decription = new System.Windows.Forms.TextBox();
             this.label3 = new System.Windows.Forms.Label();
-            this.checkBoxInStock = new System.Windows.Forms.CheckBox();
             this.comboBoxCategoryProduct = new System.Windows.Forms.ComboBox();
             this.label4 = new System.Windows.Forms.Label();
             this.buttonCancel = new System.Windows.Forms.Button();
             this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
             this.label5 = new System.Windows.Forms.Label();
             this.buttonOpenImage = new System.Windows.Forms.Button();
+            this.textBoxQuantity = new System.Windows.Forms.TextBox();
+            this.label6 = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // label1
@@ -88,7 +89,7 @@
             // 
             // input_decription
             // 
-            this.input_decription.Location = new System.Drawing.Point(15, 188);
+            this.input_decription.Location = new System.Drawing.Point(15, 204);
             this.input_decription.Multiline = true;
             this.input_decription.Name = "input_decription";
             this.input_decription.Size = new System.Drawing.Size(263, 109);
@@ -97,21 +98,11 @@
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(12, 172);
+            this.label3.Location = new System.Drawing.Point(12, 188);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(57, 13);
             this.label3.TabIndex = 5;
             this.label3.Text = "Описание";
-            // 
-            // checkBoxInStock
-            // 
-            this.checkBoxInStock.AutoSize = true;
-            this.checkBoxInStock.Location = new System.Drawing.Point(15, 152);
-            this.checkBoxInStock.Name = "checkBoxInStock";
-            this.checkBoxInStock.Size = new System.Drawing.Size(77, 17);
-            this.checkBoxInStock.TabIndex = 7;
-            this.checkBoxInStock.Text = "В наличии";
-            this.checkBoxInStock.UseVisualStyleBackColor = true;
             // 
             // comboBoxCategoryProduct
             // 
@@ -153,7 +144,7 @@
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(12, 300);
+            this.label5.Location = new System.Drawing.Point(12, 316);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(166, 13);
             this.label5.TabIndex = 11;
@@ -163,7 +154,7 @@
             // 
             this.buttonOpenImage.BackColor = System.Drawing.SystemColors.Control;
             this.buttonOpenImage.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.buttonOpenImage.Location = new System.Drawing.Point(15, 316);
+            this.buttonOpenImage.Location = new System.Drawing.Point(15, 332);
             this.buttonOpenImage.Name = "buttonOpenImage";
             this.buttonOpenImage.Size = new System.Drawing.Size(163, 27);
             this.buttonOpenImage.TabIndex = 12;
@@ -171,17 +162,34 @@
             this.buttonOpenImage.UseVisualStyleBackColor = false;
             this.buttonOpenImage.Click += new System.EventHandler(this.buttonOpenImage_Click);
             // 
+            // textBoxQuantity
+            // 
+            this.textBoxQuantity.Location = new System.Drawing.Point(15, 165);
+            this.textBoxQuantity.Name = "textBoxQuantity";
+            this.textBoxQuantity.Size = new System.Drawing.Size(118, 20);
+            this.textBoxQuantity.TabIndex = 14;
+            // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.Location = new System.Drawing.Point(12, 149);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(104, 13);
+            this.label6.TabIndex = 13;
+            this.label6.Text = "Количество товара";
+            // 
             // AddProductForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(294, 451);
+            this.Controls.Add(this.textBoxQuantity);
+            this.Controls.Add(this.label6);
             this.Controls.Add(this.buttonOpenImage);
             this.Controls.Add(this.label5);
             this.Controls.Add(this.buttonCancel);
             this.Controls.Add(this.label4);
             this.Controls.Add(this.comboBoxCategoryProduct);
-            this.Controls.Add(this.checkBoxInStock);
             this.Controls.Add(this.input_decription);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.input_priceProduct);
@@ -206,12 +214,13 @@
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.TextBox input_decription;
         private System.Windows.Forms.Label label3;
-        private System.Windows.Forms.CheckBox checkBoxInStock;
         private System.Windows.Forms.ComboBox comboBoxCategoryProduct;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Button buttonCancel;
         private System.Windows.Forms.OpenFileDialog openFileDialog1;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.Button buttonOpenImage;
+        private System.Windows.Forms.TextBox textBoxQuantity;
+        private System.Windows.Forms.Label label6;
     }
 }
