@@ -52,6 +52,11 @@ namespace AudioVideoShop
         }
 
 
+        public void UpdateProduct(Product product)
+        {
+            productsData.UpdateProductInDB(product);
+            UpdateCatalog();
+        }
 
         private void UpdateCatalog()
         {

@@ -28,8 +28,9 @@ namespace AudioVideoShop
             textBoxDecription.Text = product.Decription;
             pictureBoxProduct.Image = Image.FromFile(fullImagePath);
             labelCategory.Text = product.Category;
-            buttonBuy.Enabled = product.InStock;
+            buttonBuy.Enabled = !(product.Quantity == 0);
             labelID.Text += product.Id.ToString();
+            labelQuantity.Text = product.Quantity.ToString();
         }
 
         private void ProductBuyPage_Load(object sender, EventArgs e)
@@ -40,6 +41,16 @@ namespace AudioVideoShop
         private void buttonBuy_Click(object sender, EventArgs e)
         {
             _showcase.AddToCart(_product);
+
+            _product.Quantity -= 1;
+
+            if (_product.Quantity == 0)
+            {
+                buttonBuy.Enabled = false;
+            }
+            labelQuantity.Text = _product.Quantity.ToString();
+
+            _showcase.UpdateProduct(_product);
         }
 
         private void buttonDeleteProduct_Click(object sender, EventArgs e)

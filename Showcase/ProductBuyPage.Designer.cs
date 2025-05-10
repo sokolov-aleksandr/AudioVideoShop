@@ -38,6 +38,9 @@
             this.label2 = new System.Windows.Forms.Label();
             this.buttonDeleteProduct = new System.Windows.Forms.Button();
             this.labelID = new System.Windows.Forms.Label();
+            this.label3 = new System.Windows.Forms.Label();
+            this.label4 = new System.Windows.Forms.Label();
+            this.labelQuantity = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxProduct)).BeginInit();
             this.SuspendLayout();
             // 
@@ -139,11 +142,45 @@
             this.labelID.TabIndex = 10;
             this.labelID.Text = "ID: ";
             // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(165, 176);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(125, 13);
+            this.label3.TabIndex = 12;
+            this.label3.Text = "Количество в наличии: ";
+            // 
+            // label4
+            // 
+            this.label4.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.label4.AutoSize = true;
+            this.label4.Location = new System.Drawing.Point(228, 176);
+            this.label4.Name = "label4";
+            this.label4.RightToLeft = System.Windows.Forms.RightToLeft.No;
+            this.label4.Size = new System.Drawing.Size(35, 13);
+            this.label4.TabIndex = 11;
+            this.label4.Text = "label2";
+            // 
+            // labelQuantity
+            // 
+            this.labelQuantity.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.labelQuantity.AutoSize = true;
+            this.labelQuantity.Location = new System.Drawing.Point(290, 176);
+            this.labelQuantity.Name = "labelQuantity";
+            this.labelQuantity.RightToLeft = System.Windows.Forms.RightToLeft.No;
+            this.labelQuantity.Size = new System.Drawing.Size(35, 13);
+            this.labelQuantity.TabIndex = 13;
+            this.labelQuantity.Text = "label2";
+            // 
             // ProductBuyPage
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(539, 223);
+            this.Controls.Add(this.labelQuantity);
+            this.Controls.Add(this.label3);
+            this.Controls.Add(this.label4);
             this.Controls.Add(this.labelID);
             this.Controls.Add(this.buttonDeleteProduct);
             this.Controls.Add(this.label2);
@@ -175,5 +212,8 @@
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Button buttonDeleteProduct;
         private System.Windows.Forms.Label labelID;
+        private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.Label labelQuantity;
     }
 }
