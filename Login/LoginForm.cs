@@ -30,12 +30,15 @@ namespace AudioVideoShop
             string username = loginTextBox.Text;
             string password = passwordTextBox.Text;
 
-            Login(username, password);
+            if (Login(username, password))
+            {
+                // Открываем магазин
+                Showcase showcase = new Showcase();
+                showcase.Show();
+                this.Close();
+            }
 
-            // Открываем магазин
-            Showcase showcase = new Showcase();
-            showcase.Show();
-            this.Close();
+            
         }
 
         private bool Login(string username, string password)
