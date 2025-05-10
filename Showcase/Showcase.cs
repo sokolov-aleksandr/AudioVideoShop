@@ -224,6 +224,15 @@ namespace AudioVideoShop
         private void buttonSaveChanges_Click(object sender, EventArgs e)
         {
             tableSynchronizer.SaveChanges();
+
+            foreach (DataGridViewRow row in dataGridView1.Rows)
+            {
+                foreach (DataGridViewCell cell in row.Cells)
+                {
+                    cell.Style.BackColor = Color.White;
+                }
+            }
+
             MessageBox.Show("Изменения успешно сохранены");
         }
 
@@ -236,6 +245,41 @@ namespace AudioVideoShop
         {
             tableSynchronizer.tableName = nameTable;
             tableSynchronizer.RefreshGrid(dataGridView1, nameTable);
+            AdjustDataGridViewColumns(dataGridView1);
+        }
+
+        private void AdjustDataGridViewColumns(DataGridView dgv)
+        {
+            // Настройка авторазмера столбцов — растянуть на всю ширину
+            dgv.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+
+            // Пройтись по всем столбцам и задать выравнивание
+            foreach (DataGridViewColumn column in dgv.Columns)
+            {
+                // Если это первый столбец, выравниваем по правому краю
+                if (column.Index == 0)
+                    column.DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
+                else
+                    column.DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleLeft; // Остальные по левому краю
+            }
+        }
+
+
+        private void dataGridView1_CellValueChanged(object sender, DataGridViewCellEventArgs e)
+        {
+            if (e.RowIndex >= 0 && e.ColumnIndex >= 0)
+            {
+                DataGridViewCell cell = dataGridView1.Rows[e.RowIndex].Cells[e.ColumnIndex];
+                cell.Style.BackColor = Color.LightBlue; // Цвет для подсветки
+            }
+        }
+
+        private void dataGridView1_CurrentCellDirtyStateChanged(object sender, EventArgs e)
+        {
+            if (dataGridView1.IsCurrentCellDirty)
+            {
+                dataGridView1.CommitEdit(DataGridViewDataErrorContexts.Commit);
+            }
         }
     }
 }
