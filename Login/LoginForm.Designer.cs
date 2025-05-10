@@ -111,8 +111,10 @@
             this.Controls.Add(this.loginTextBox);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.EnterButton);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
+            this.MaximizeBox = false;
             this.Name = "LoginForm";
-            this.Text = "LoginForm";
+            this.Text = "Логин";
             this.Load += new System.EventHandler(this.LoginForm_Load);
             this.ResumeLayout(false);
             this.PerformLayout();

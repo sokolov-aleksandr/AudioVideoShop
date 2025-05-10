@@ -237,10 +237,12 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(885, 605);
+            this.ClientSize = new System.Drawing.Size(884, 605);
             this.Controls.Add(this.tabControl1);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
+            this.MaximizeBox = false;
             this.Name = "Showcase";
-            this.Text = "Showcase";
+            this.Text = "Приложение";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Showcase_FormClosing);
             this.Load += new System.EventHandler(this.Showcase_Load);
             this.AdminGroupBox.ResumeLayout(false);

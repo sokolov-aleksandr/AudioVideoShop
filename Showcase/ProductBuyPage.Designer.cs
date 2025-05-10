@@ -125,7 +125,7 @@
             // buttonDeleteProduct
             // 
             this.buttonDeleteProduct.ForeColor = System.Drawing.Color.Brown;
-            this.buttonDeleteProduct.Location = new System.Drawing.Point(393, 176);
+            this.buttonDeleteProduct.Location = new System.Drawing.Point(393, 168);
             this.buttonDeleteProduct.Name = "buttonDeleteProduct";
             this.buttonDeleteProduct.Size = new System.Drawing.Size(121, 23);
             this.buttonDeleteProduct.TabIndex = 9;
@@ -136,7 +136,7 @@
             // labelID
             // 
             this.labelID.AutoSize = true;
-            this.labelID.Location = new System.Drawing.Point(390, 201);
+            this.labelID.Location = new System.Drawing.Point(390, 193);
             this.labelID.Name = "labelID";
             this.labelID.Size = new System.Drawing.Size(24, 13);
             this.labelID.TabIndex = 10;
@@ -191,8 +191,10 @@
             this.Controls.Add(this.labelPrice);
             this.Controls.Add(this.pictureBoxProduct);
             this.Controls.Add(this.buttonBuy);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
+            this.MaximizeBox = false;
             this.Name = "ProductBuyPage";
-            this.Text = "ProductBuyPage";
+            this.Text = "О продукте";
             this.Load += new System.EventHandler(this.ProductBuyPage_Load);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxProduct)).EndInit();
             this.ResumeLayout(false);
