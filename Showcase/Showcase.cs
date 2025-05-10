@@ -150,6 +150,8 @@ namespace AudioVideoShop
                 {
                     // Действия:
                     AdminGroupBox.Visible = true;
+                    tabControl1.TabPages[1].Text = "База данных";
+                    tabControl1.TabPages[1].Enabled = true;
                 },
 
                 // Роль обычного пользователя (Покупателя)
@@ -157,6 +159,7 @@ namespace AudioVideoShop
                 {
                     // Действия:
                     AdminGroupBox.Visible = false;
+                    tabControl1.TabPages.Remove(tabPage2);
                 }
             };
 
