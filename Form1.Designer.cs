@@ -160,6 +160,7 @@
             this.buttonCalculateData.TabIndex = 12;
             this.buttonCalculateData.Text = "Расчёт прогнозных данных";
             this.buttonCalculateData.UseVisualStyleBackColor = true;
+            this.buttonCalculateData.Click += new System.EventHandler(this.buttonCalculateData_Click);
             // 
             // Form1
             // 

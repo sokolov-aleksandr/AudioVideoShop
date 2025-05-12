@@ -130,6 +130,12 @@
     <Compile Include="Showcase\Showcase.Designer.cs">
       <DependentUpon>Showcase.cs</DependentUpon>
     </Compile>
+    <Compile Include="TheoryForms\CalculationOfForecastValuesForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="TheoryForms\CalculationOfForecastValuesForm.Designer.cs">
+      <DependentUpon>CalculationOfForecastValuesForm.cs</DependentUpon>
+    </Compile>
     <EmbeddedResource Include="Form1.resx">
       <DependentUpon>Form1.cs</DependentUpon>
     </EmbeddedResource>
@@ -166,6 +172,9 @@
     <EmbeddedResource Include="Showcase\Showcase.resx">
       <DependentUpon>Showcase.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="TheoryForms\CalculationOfForecastValuesForm.resx">
+      <DependentUpon>CalculationOfForecastValuesForm.cs</DependentUpon>
+    </EmbeddedResource>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -201,6 +210,7 @@
     <Content Include="Data\Shop.accdb">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Include="Data\Theory\MyCalc.jpg" />
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

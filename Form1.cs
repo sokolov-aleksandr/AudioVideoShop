@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using AudioVideoShop.TheoryForms;
 
 namespace AudioVideoShop
 {
@@ -34,6 +35,10 @@ namespace AudioVideoShop
             this.Hide();
         }
 
-        
+        private void buttonCalculateData_Click(object sender, EventArgs e)
+        {
+            CalculationOfForecastValuesForm calculationOfForecastValuesForm = new CalculationOfForecastValuesForm();
+            calculationOfForecastValuesForm.ShowDialog();
+        }
     }
 }
