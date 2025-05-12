@@ -12,6 +12,7 @@ using System.IO;
 using System.Diagnostics;
 using System.Xml.Linq;
 using AudioVideoShop.Login;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 
 namespace AudioVideoShop
 {
@@ -150,6 +151,8 @@ namespace AudioVideoShop
                 {
                     // Действия:
                     AdminGroupBox.Visible = true;
+                    tabControl1.TabPages[1].Text = "База данных";
+                    tabControl1.TabPages[1].Enabled = true;
                 },
 
                 // Роль обычного пользователя (Покупателя)
@@ -157,6 +160,7 @@ namespace AudioVideoShop
                 {
                     // Действия:
                     AdminGroupBox.Visible = false;
+                    tabControl1.TabPages.Remove(tabPage2);
                 }
             };
 
@@ -197,6 +201,7 @@ namespace AudioVideoShop
                 {
                     comboBox1.SelectedIndex = 0;
                     ChangeTable(comboBox1.Text);
+                    tableSynchronizer.RefreshGrid(dataGridView1, tableSynchronizer.tableName);
                 }
             }
 
@@ -246,6 +251,12 @@ namespace AudioVideoShop
             tableSynchronizer.tableName = nameTable;
             tableSynchronizer.RefreshGrid(dataGridView1, nameTable);
             AdjustDataGridViewColumns(dataGridView1);
+
+            // Обновление колонок для поиска
+            List<string> columns = tableSynchronizer.GetColumnNames();
+            comboBox2.Items.Clear();
+            comboBox2.Items.AddRange(columns.ToArray()); // Каждое имя на новой строке
+
         }
 
         private void AdjustDataGridViewColumns(DataGridView dgv)
@@ -280,6 +291,71 @@ namespace AudioVideoShop
             {
                 dataGridView1.CommitEdit(DataGridViewDataErrorContexts.Commit);
             }
+        }
+
+        /// <summary>
+        /// Фильтрует строки в dataGridView1 по выбранной колонке и тексту поиска.
+        /// Работает для любых типов столбцов за счёт конвертации в строку.
+        /// </summary>
+        private void ApplySearchFilter()
+        {
+            // Проверяем выбор колонки
+            string column = comboBox2.SelectedItem?.ToString();
+            if (string.IsNullOrEmpty(column))
+            {
+                MessageBox.Show("Пожалуйста, выберите колонку для поиска.");
+                return;
+            }
+
+            // Текст для поиска
+            string searchText = textBoxSearch.Text.Trim().Replace("'", "''");
+            if (string.IsNullOrEmpty(searchText))
+            {
+                MessageBox.Show("Пожалуйста, введите текст для поиска.");
+                return;
+            }
+
+            // Получаем DataTable из грида
+            if (!(dataGridView1.DataSource is DataTable dt))
+                return;
+
+            try
+            {
+                // Конвертируем содержимое ANY-столбца в строку и применяем LIKE
+                string filter = $"Convert([{column}], 'System.String') LIKE '%{searchText}%'";
+                dt.DefaultView.RowFilter = filter;
+            }
+            catch (EvaluateException ex)
+            {
+                // На случай, если Convert не сработает — просто сбрасываем фильтр и ругаемся
+                dt.DefaultView.RowFilter = string.Empty;
+                MessageBox.Show($"Ошибка при фильтрации: {ex.Message}");
+            }
+        }
+
+
+        /// <summary>
+        /// Сбрасывает фильтр и возвращает таблицу к исходному (полностью загруженному) виду.
+        /// </summary>
+        private void ClearSearchFilter()
+        {
+            // Очищаем текст и фильтр
+            textBoxSearch.Clear();
+
+            if (dataGridView1.DataSource is DataTable dt)
+            {
+                dt.DefaultView.RowFilter = string.Empty;
+            }
+        }
+
+        private void buttonSearch_Click(object sender, EventArgs e)
+        {
+            ApplySearchFilter();
+        }
+
+        private void buttonClearSearch_Click(object sender, EventArgs e)
+        {
+            ClearSearchFilter();
         }
     }
 }

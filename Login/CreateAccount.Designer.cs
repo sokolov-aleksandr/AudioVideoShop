@@ -112,8 +112,10 @@
             this.Controls.Add(this.usernameTextBox);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.CreateButton);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
+            this.MaximizeBox = false;
             this.Name = "CreateAccount";
-            this.Text = "CreateAccount";
+            this.Text = "Создать аккаунт";
             this.Load += new System.EventHandler(this.CreateAccount_Load);
             this.ResumeLayout(false);
             this.PerformLayout();

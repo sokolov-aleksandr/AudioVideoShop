@@ -1,4 +1,6 @@
-﻿
+﻿using System.IO;
+using System.Windows.Forms;
+
 namespace AudioVideoShop
 {
     public class Product
@@ -18,7 +20,7 @@ namespace AudioVideoShop
             Quantity = quantity;
             Category = category;
             Decription = decription;
-            ImagePath = imagePath;
+            ImagePath = File.Exists(Path.Combine(Application.StartupPath, "Data", imagePath)) ? imagePath : "NoImage.png";
         }
     }
 }

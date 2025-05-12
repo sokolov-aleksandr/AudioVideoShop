@@ -197,8 +197,10 @@
             this.Controls.Add(this.input_nameProduct);
             this.Controls.Add(this.buttonAdd);
             this.Controls.Add(this.label1);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
+            this.MaximizeBox = false;
             this.Name = "AddProductForm";
-            this.Text = "AddProductForm";
+            this.Text = "Добавить продукт";
             this.Load += new System.EventHandler(this.AddProductForm_Load);
             this.ResumeLayout(false);
             this.PerformLayout();

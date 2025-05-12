@@ -92,8 +92,10 @@
             this.Controls.Add(this.buttonBuy);
             this.Controls.Add(this.buttonClear);
             this.Controls.Add(this.groupBox1);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
+            this.MaximizeBox = false;
             this.Name = "CartForm";
-            this.Text = " ";
+            this.Text = "Корзина";
             this.Load += new System.EventHandler(this.CardForm_Load);
             this.groupBox1.ResumeLayout(false);
             this.ResumeLayout(false);
