@@ -63,7 +63,25 @@ namespace AudioVideoShop
             dataTable.Rows[rowIndex].Delete();
         }
 
-        
+        public List<string> GetColumnNames()
+        {
+            List<string> columnNames = new List<string>();
+
+            // Открываем команду и читаем схему таблицы
+            using (OleDbCommand command = new OleDbCommand($"SELECT * FROM {tableName} WHERE 1=0", connection))
+            using (OleDbDataReader reader = command.ExecuteReader(CommandBehavior.SchemaOnly))
+            {
+                DataTable schemaTable = reader.GetSchemaTable();
+
+                foreach (DataRow row in schemaTable.Rows)
+                {
+                    columnNames.Add(row["ColumnName"].ToString());
+                }
+            }
+
+            return columnNames;
+        }
+
 
     }
 }

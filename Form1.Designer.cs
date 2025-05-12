@@ -38,12 +38,13 @@
             this.label7 = new System.Windows.Forms.Label();
             this.label8 = new System.Windows.Forms.Label();
             this.label9 = new System.Windows.Forms.Label();
+            this.buttonCalculateData = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // button1
             // 
             this.button1.Anchor = System.Windows.Forms.AnchorStyles.Top;
-            this.button1.Location = new System.Drawing.Point(326, 450);
+            this.button1.Location = new System.Drawing.Point(326, 400);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(149, 50);
             this.button1.TabIndex = 1;
@@ -150,11 +151,22 @@
             this.label9.TabIndex = 10;
             this.label9.Text = "Соколов А. А.";
             // 
+            // buttonCalculateData
+            // 
+            this.buttonCalculateData.Anchor = System.Windows.Forms.AnchorStyles.Top;
+            this.buttonCalculateData.Location = new System.Drawing.Point(326, 456);
+            this.buttonCalculateData.Name = "buttonCalculateData";
+            this.buttonCalculateData.Size = new System.Drawing.Size(149, 50);
+            this.buttonCalculateData.TabIndex = 12;
+            this.buttonCalculateData.Text = "Расчёт прогнозных данных";
+            this.buttonCalculateData.UseVisualStyleBackColor = true;
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(784, 591);
+            this.Controls.Add(this.buttonCalculateData);
             this.Controls.Add(this.label9);
             this.Controls.Add(this.label8);
             this.Controls.Add(this.label7);
@@ -185,6 +197,7 @@
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.Label label8;
         private System.Windows.Forms.Label label9;
+        private System.Windows.Forms.Button buttonCalculateData;
     }
 }
 
