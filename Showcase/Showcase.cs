@@ -49,9 +49,14 @@ namespace AudioVideoShop
             productsData.AddProductToDB(product); // Добавляем товар в базу данных
 
             // Добавляем товар на форму (визуально)
-            ProductCard productCard = new ProductCard(this, product);
-            productCard.SetProduct(product);
-            flowLayoutPanelProductCatalog.Controls.Add(productCard);
+            flowLayoutPanelProductCatalog.Controls.Add(CreateCard(product));
+        }
+
+        private ProductCard CreateCard(Product p)
+        {
+            var card = new ProductCard(this, p);
+            card.SetProduct(p);
+            return card;
         }
 
 
@@ -73,9 +78,7 @@ namespace AudioVideoShop
 
             foreach (var product in products)
             {
-                ProductCard productCard = new ProductCard(this, product);
-                productCard.SetProduct(product);
-                flowLayoutPanelProductCatalog.Controls.Add(productCard);
+                flowLayoutPanelProductCatalog.Controls.Add(CreateCard(product));
             }
         }
 
