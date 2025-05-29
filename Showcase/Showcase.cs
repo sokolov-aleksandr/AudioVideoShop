@@ -16,11 +16,15 @@ using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 
 namespace AudioVideoShop
 {
-    public partial class Showcase : Form
+    public partial class Showcase : Form, IRoleConfigurable
     {
         ProductsDataSource productsData; // Класс для работы с БД
         AccountDataSource accountsData;
         AccessTableSynchronizer tableSynchronizer;
+
+        public GroupBox AdminPanel => AdminGroupBox;
+        public TabControl MainTabControl => tabControl1;
+        public TabPage AdminTabPage => tabPage2;
 
         public Showcase()
         {
@@ -30,7 +34,8 @@ namespace AudioVideoShop
         private void Showcase_Load(object sender, EventArgs e)
         {
             // Обрабатываем интерфейс под роль пользователя
-            HandlingAccountRole(Session.CurrentUser.Role);
+            RoleConfigurator.Apply(Session.CurrentUser.Role, this);
+
             usernameLabel.Text = Session.CurrentUser.Username;
 
             accountsData = new AccountDataSource();
@@ -143,38 +148,6 @@ namespace AudioVideoShop
             }
 
             UpdateCatalogUI(allProducts);
-        }
-
-        private void HandlingAccountRole(AccountRole role)
-        {
-            var roleActions = new Dictionary<AccountRole, Action>
-            {
-                // Роль Админа
-                [AccountRole.admin] = () =>
-                {
-                    // Действия:
-                    AdminGroupBox.Visible = true;
-                    tabControl1.TabPages[1].Text = "База данных";
-                    tabControl1.TabPages[1].Enabled = true;
-                },
-
-                // Роль обычного пользователя (Покупателя)
-                [AccountRole.user] = () =>
-                {
-                    // Действия:
-                    AdminGroupBox.Visible = false;
-                    tabControl1.TabPages.Remove(tabPage2);
-                }
-            };
-
-            if (roleActions.TryGetValue(role, out var action))
-            {
-                action.Invoke();
-            }
-            else
-            {
-                MessageBox.Show("Неизвестная роль. \nУкажите роль и её действия!");
-            }
         }
 
         private void CreateUserButton_Click(object sender, EventArgs e)
