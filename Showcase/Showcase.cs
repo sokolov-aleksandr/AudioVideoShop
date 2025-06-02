@@ -18,14 +18,17 @@ namespace AudioVideoShop
 {
     public partial class Showcase : Form, IRoleConfigurable
     {
-        ProductsDataSource productsData; // Класс для работы с БД
-        AccountDataSource accountsData;
-        AccessTableSynchronizer tableSynchronizer;
-
+        #region Constants
         public GroupBox AdminPanel => AdminGroupBox;
         public TabControl MainTabControl => tabControl1;
         public TabPage AdminTabPage => tabPage2;
 
+        private ProductsDataSource _productsData; // Класс для работы с БД
+        private AccountDataSource _accountsData;
+        private AccessTableSynchronizer _tableSynchronizer;
+        #endregion
+
+        #region Start
         public Showcase()
         {
             InitializeComponent();
@@ -38,25 +41,72 @@ namespace AudioVideoShop
 
             usernameLabel.Text = Session.CurrentUser.Username;
 
-            accountsData = new AccountDataSource();
-            productsData = new ProductsDataSource(); // Объявляем тут, чтобы вызвать конструктор создающий соединение с БД
-            tableSynchronizer = new AccessTableSynchronizer("Products");
-            UpdateCatalog();
+            _accountsData = new AccountDataSource();
+            _productsData = new ProductsDataSource(); // Объявляем тут, чтобы вызвать конструктор создающий соединение с БД
+            _tableSynchronizer = new AccessTableSynchronizer("Products");
+            UpdateCatalogFromDatabase();
             comboBoxCategoryFilter.SelectedIndex = 0; // По умолчанию — показывать все
 
             // При открытии делаем фокус на эту форму
             this.BringToFront(); // TODO фикси это, всё равно главной становится главная форма
             this.Activate();
         }
+        #endregion
 
+        #region public methods
+        /// <summary>
+        /// Создание карточки товара с информацией о продукте
+        /// </summary>
+        /// <param name="product">Информация о продукте</param>
         public void CreateProductCard(Product product)
         {
-            productsData.AddProductToDB(product); // Добавляем товар в базу данных
+            _productsData.AddProductToDB(product); // Добавляем товар в базу данных
 
             // Добавляем товар на форму (визуально)
             flowLayoutPanelProductCatalog.Controls.Add(CreateCard(product));
         }
 
+        /// <summary>
+        /// Обновление продукта в базе данных
+        /// </summary>
+        /// <param name="product">Новая информация о продукте</param>
+        public void UpdateProduct(Product product)
+        {
+            _productsData.UpdateProductInDB(product);
+            UpdateCatalogFromDatabase();
+        }
+
+        /// <summary>
+        /// Полное удаление карточки товара
+        /// </summary>
+        /// <param name="id">id товара в базе данных</param>
+        public void DeleteProductCard(int id)
+        {
+            _productsData.DeleteProductById(id); // Удаляем из БД
+
+            // Поиск и удаление визуальной карточки
+            foreach (Control control in flowLayoutPanelProductCatalog.Controls)
+            {
+                if (control is ProductCard card && card.Product.Id == id)
+                {
+                    flowLayoutPanelProductCatalog.Controls.Remove(card);
+                    card.Dispose(); // Освобождаем ресурсы
+                    break;
+                }
+            }
+        }
+
+        /// <summary>
+        /// Добавление товара в корзину
+        /// </summary>
+        /// <param name="product">Товар для добавления</param>
+        public void AddToCart(Product product)
+        {
+            Session.CurrentUser.Cart.AddItem(product);
+        }
+        #endregion
+
+        #region private func
         private ProductCard CreateCard(Product p)
         {
             var card = new ProductCard(this, p);
@@ -64,16 +114,9 @@ namespace AudioVideoShop
             return card;
         }
 
-
-        public void UpdateProduct(Product product)
+        private void UpdateCatalogFromDatabase()
         {
-            productsData.UpdateProductInDB(product);
-            UpdateCatalog();
-        }
-
-        private void UpdateCatalog()
-        {
-            List<Product> products = productsData.LoadProducts();
+            List<Product> products = _productsData.LoadProducts();
             UpdateCatalogUI(products);
         }
 
@@ -111,36 +154,17 @@ namespace AudioVideoShop
             else
             {
                 // Освобождаем ресурсы от БД
-                productsData.Dispose();
+                _productsData.Dispose();
                 Form1.Instance.Show();
             }
         }
         
-        public void DeleteProductCard(int id)
-        {
-            productsData.DeleteProductById(id); // Удаляем из БД
 
-            // Поиск и удаление визуальной карточки
-            foreach (Control control in flowLayoutPanelProductCatalog.Controls)
-            {
-                if (control is ProductCard card && card.Product.Id == id)
-                {
-                    flowLayoutPanelProductCatalog.Controls.Remove(card);
-                    card.Dispose(); // Освобождаем ресурсы
-                    break;
-                }
-            }
-        }
-
-        public void AddToCart(Product product)
-        {
-            Session.CurrentUser.Cart.AddItem(product);
-        }
 
         private void comboBoxCategoryFilter_SelectedIndexChanged(object sender, EventArgs e)
         {
             string selectedCategory = comboBoxCategoryFilter.SelectedItem.ToString();
-            List<Product> allProducts = productsData.LoadProducts();
+            List<Product> allProducts = _productsData.LoadProducts();
 
             if (selectedCategory != "Все")
             {
@@ -152,7 +176,7 @@ namespace AudioVideoShop
 
         private void CreateUserButton_Click(object sender, EventArgs e)
         {
-            CreateAccount createAccount = new CreateAccount(accountsData, Session.CurrentUser.Role);
+            CreateAccount createAccount = new CreateAccount(_accountsData, Session.CurrentUser.Role);
             createAccount.ShowDialog();
         }
 
@@ -171,19 +195,19 @@ namespace AudioVideoShop
         {
             if (tabControl1.SelectedIndex == 1)
             {
-                tableSynchronizer.LoadToGrid(dataGridView1);
+                _tableSynchronizer.LoadToGrid(dataGridView1);
                 
                 if (comboBox1.Items.Count > 0)
                 {
                     comboBox1.SelectedIndex = 0;
                     ChangeTable(comboBox1.Text);
-                    tableSynchronizer.RefreshGrid(dataGridView1, tableSynchronizer.tableName);
+                    _tableSynchronizer.RefreshGrid(dataGridView1, _tableSynchronizer.tableName);
                 }
             }
 
             if (tabControl1.SelectedIndex == 0)
             {
-                UpdateCatalog();
+                UpdateCatalogFromDatabase();
             }
             
         }
@@ -198,13 +222,13 @@ namespace AudioVideoShop
 
             if (result == DialogResult.Yes)
             {
-                tableSynchronizer.RefreshGrid(dataGridView1, tableSynchronizer.tableName);
+                _tableSynchronizer.RefreshGrid(dataGridView1, _tableSynchronizer.tableName);
             }
         }
 
         private void buttonSaveChanges_Click(object sender, EventArgs e)
         {
-            tableSynchronizer.SaveChanges();
+            _tableSynchronizer.SaveChanges();
 
             foreach (DataGridViewRow row in dataGridView1.Rows)
             {
@@ -224,12 +248,12 @@ namespace AudioVideoShop
 
         private void ChangeTable(string nameTable)
         {
-            tableSynchronizer.tableName = nameTable;
-            tableSynchronizer.RefreshGrid(dataGridView1, nameTable);
+            _tableSynchronizer.tableName = nameTable;
+            _tableSynchronizer.RefreshGrid(dataGridView1, nameTable);
             AdjustDataGridViewColumns(dataGridView1);
 
             // Обновление колонок для поиска
-            List<string> columns = tableSynchronizer.GetColumnNames();
+            List<string> columns = _tableSynchronizer.GetColumnNames();
             comboBox2.Items.Clear();
             comboBox2.Items.AddRange(columns.ToArray()); // Каждое имя на новой строке
 
@@ -333,5 +357,6 @@ namespace AudioVideoShop
         {
             ClearSearchFilter();
         }
+        #endregion
     }
 }
