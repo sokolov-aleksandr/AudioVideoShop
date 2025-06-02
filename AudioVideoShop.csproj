@@ -124,6 +124,11 @@
     <Compile Include="Showcase\ProductCard.cs">
       <SubType>UserControl</SubType>
     </Compile>
+    <Compile Include="Showcase\RoleConfigurable\IRoleConfigurable.cs" />
+    <Compile Include="Showcase\RoleConfigurable\RoleConfigurator.cs" />
+    <Compile Include="Showcase\Services\DataGridViewStyler.cs" />
+    <Compile Include="Showcase\Services\ProductCatalogManager.cs" />
+    <Compile Include="Showcase\Services\SearchHelper.cs" />
     <Compile Include="Showcase\Showcase.cs">
       <SubType>Form</SubType>
     </Compile>

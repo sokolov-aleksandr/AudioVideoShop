@@ -1,26 +1,31 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.Data;
 using System.Drawing;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
-using System.Data.OleDb;
-using System.IO;
-using System.Diagnostics;
-using System.Xml.Linq;
 using AudioVideoShop.Login;
-using static System.Windows.Forms.VisualStyles.VisualStyleElement;
+using AudioVideoShop.Services;
 
 namespace AudioVideoShop
 {
-    public partial class Showcase : Form
+    public partial class Showcase : Form, IRoleConfigurable
     {
-        ProductsDataSource productsData; // Класс для работы с БД
-        AccountDataSource accountsData;
-        AccessTableSynchronizer tableSynchronizer;
+        #region Constants
+
+        public GroupBox AdminPanel => AdminGroupBox;
+        public TabControl MainTabControl => tabControl1;
+        public TabPage AdminTabPage => tabPage2;
+
+        private ProductCatalogManager _catalogManager;
+        private ProductsDataSource _productsData;
+        private AccountDataSource _accountsData;
+        private AccessTableSynchronizer _tableSynchronizer;
+        private SearchHelper _searchHelper;
+
+        #endregion
+
+        #region Start
 
         public Showcase()
         {
@@ -30,60 +35,72 @@ namespace AudioVideoShop
         private void Showcase_Load(object sender, EventArgs e)
         {
             // Обрабатываем интерфейс под роль пользователя
-            HandlingAccountRole(Session.CurrentUser.Role);
+            RoleConfigurator.Apply(Session.CurrentUser.Role, this);
+
             usernameLabel.Text = Session.CurrentUser.Username;
 
-            accountsData = new AccountDataSource();
-            productsData = new ProductsDataSource(); // Объявляем тут, чтобы вызвать конструктор создающий соединение с БД
-            tableSynchronizer = new AccessTableSynchronizer("Products");
-            UpdateCatalog();
-            comboBoxCategoryFilter.SelectedIndex = 0; // По умолчанию — показывать все
+            // Инициализация источников данных
+            _accountsData = new AccountDataSource();
+            _productsData = new ProductsDataSource();
+            _catalogManager = new ProductCatalogManager(_productsData, flowLayoutPanelProductCatalog);
+            _searchHelper = new SearchHelper();
+            _tableSynchronizer = new AccessTableSynchronizer("Products");
+
+            // Подгружаем все карточки из базы и рендерим
+            _catalogManager.UpdateCatalogFromDatabase();
+            comboBoxCategoryFilter.SelectedIndex = 0; // По умолчанию показывать все
 
             // При открытии делаем фокус на эту форму
-            this.BringToFront(); // TODO фикси это, всё равно главной становится главная форма
+            this.BringToFront();
             this.Activate();
         }
 
+        #endregion
+
+        #region Public Methods
+
+        /// <summary>
+        /// Создание карточки товара с информацией о продукте
+        /// </summary>
+        /// <param name="product">Информация о продукте</param>
         public void CreateProductCard(Product product)
         {
-            productsData.AddProductToDB(product); // Добавляем товар в базу данных
-
-            // Добавляем товар на форму (визуально)
-            ProductCard productCard = new ProductCard(this, product);
-            productCard.SetProduct(product);
-            flowLayoutPanelProductCatalog.Controls.Add(productCard);
+            _catalogManager.CreateProductCard(product);
         }
 
-
+        /// <summary>
+        /// Обновление продукта в базе данных
+        /// </summary>
+        /// <param name="product">Новая информация о продукте</param>
         public void UpdateProduct(Product product)
         {
-            productsData.UpdateProductInDB(product);
-            UpdateCatalog();
+            _catalogManager.UpdateProduct(product);
         }
 
-        private void UpdateCatalog()
+        /// <summary>
+        /// Полное удаление карточки товара
+        /// </summary>
+        /// <param name="id">id товара в базе данных</param>
+        public void DeleteProductCard(int id)
         {
-            List<Product> products = productsData.LoadProducts();
-            UpdateCatalogUI(products);
+            _catalogManager.DeleteProduct(id);
         }
 
-        private void UpdateCatalogUI(List<Product> products)
+        /// <summary>
+        /// Добавление товара в корзину
+        /// </summary>
+        /// <param name="product">Товар для добавления</param>
+        public void AddToCart(Product product)
         {
-            flowLayoutPanelProductCatalog.Controls.Clear(); // Очистим панель перед добавлением новых карточек
-
-            foreach (var product in products)
-            {
-                ProductCard productCard = new ProductCard(this, product);
-                productCard.SetProduct(product);
-                flowLayoutPanelProductCatalog.Controls.Add(productCard);
-            }
+            Session.CurrentUser.Cart.AddItem(product);
         }
 
+        #endregion
 
-        // Добавление нового товара
-        private void button1_Click(object sender, EventArgs e) 
+        #region Private Event Handlers
+        private void button1_Click(object sender, EventArgs e)
         {
-            AddProductForm addProductForm = new AddProductForm(this);
+            var addProductForm = new AddProductForm(this);
             addProductForm.ShowDialog();
         }
 
@@ -103,113 +120,46 @@ namespace AudioVideoShop
             else
             {
                 // Освобождаем ресурсы от БД
-                productsData.Dispose();
+                _catalogManager.Dispose();
                 Form1.Instance.Show();
             }
-        }
-        
-        public void DeleteProductCard(int id)
-        {
-            productsData.DeleteProductById(id); // Удаляем из БД
-
-            // Поиск и удаление визуальной карточки
-            foreach (Control control in flowLayoutPanelProductCatalog.Controls)
-            {
-                if (control is ProductCard card && card.Product.Id == id)
-                {
-                    flowLayoutPanelProductCatalog.Controls.Remove(card);
-                    card.Dispose(); // Освобождаем ресурсы
-                    break;
-                }
-            }
-        }
-
-        public void AddToCart(Product product)
-        {
-            Session.CurrentUser.Cart.AddItem(product);
         }
 
         private void comboBoxCategoryFilter_SelectedIndexChanged(object sender, EventArgs e)
         {
             string selectedCategory = comboBoxCategoryFilter.SelectedItem.ToString();
-            List<Product> allProducts = productsData.LoadProducts();
-
-            if (selectedCategory != "Все")
-            {
-                allProducts = allProducts.Where(p => p.Category == selectedCategory).ToList();
-            }
-
-            UpdateCatalogUI(allProducts);
-        }
-
-        private void HandlingAccountRole(AccountRole role)
-        {
-            var roleActions = new Dictionary<AccountRole, Action>
-            {
-                // Роль Админа
-                [AccountRole.admin] = () =>
-                {
-                    // Действия:
-                    AdminGroupBox.Visible = true;
-                    tabControl1.TabPages[1].Text = "База данных";
-                    tabControl1.TabPages[1].Enabled = true;
-                },
-
-                // Роль обычного пользователя (Покупателя)
-                [AccountRole.user] = () =>
-                {
-                    // Действия:
-                    AdminGroupBox.Visible = false;
-                    tabControl1.TabPages.Remove(tabPage2);
-                }
-            };
-
-            if (roleActions.TryGetValue(role, out var action))
-            {
-                action.Invoke();
-            }
-            else
-            {
-                MessageBox.Show("Неизвестная роль. \nУкажите роль и её действия!");
-            }
+            _catalogManager.FilterByCategory(selectedCategory);
         }
 
         private void CreateUserButton_Click(object sender, EventArgs e)
         {
-            CreateAccount createAccount = new CreateAccount(accountsData, Session.CurrentUser.Role);
+            var createAccount = new CreateAccount(_accountsData, Session.CurrentUser.Role);
             createAccount.ShowDialog();
         }
 
         private void buttonOpenCart_Click(object sender, EventArgs e)
         {
-            CartForm cartForm = new CartForm(Session.CurrentUser.Cart);
+            var cartForm = new CartForm(Session.CurrentUser.Cart);
             cartForm.ShowDialog();
-        }
-
-        private void tabControl1_TabIndexChanged(object sender, EventArgs e)
-        {
-            
         }
 
         private void tabControl1_SelectedIndexChanged(object sender, EventArgs e)
         {
             if (tabControl1.SelectedIndex == 1)
             {
-                tableSynchronizer.LoadToGrid(dataGridView1);
-                
+                _tableSynchronizer.LoadToGrid(dataGridView1);
+
                 if (comboBox1.Items.Count > 0)
                 {
                     comboBox1.SelectedIndex = 0;
                     ChangeTable(comboBox1.Text);
-                    tableSynchronizer.RefreshGrid(dataGridView1, tableSynchronizer.tableName);
+                    _tableSynchronizer.RefreshGrid(dataGridView1, _tableSynchronizer.tableName);
                 }
             }
-
-            if (tabControl1.SelectedIndex == 0)
+            else if (tabControl1.SelectedIndex == 0)
             {
-                UpdateCatalog();
+                _catalogManager.UpdateCatalogFromDatabase();
             }
-            
         }
 
         private void buttonDeleteChanges_Click(object sender, EventArgs e)
@@ -222,21 +172,16 @@ namespace AudioVideoShop
 
             if (result == DialogResult.Yes)
             {
-                tableSynchronizer.RefreshGrid(dataGridView1, tableSynchronizer.tableName);
+                _tableSynchronizer.RefreshGrid(dataGridView1, _tableSynchronizer.tableName);
             }
         }
 
         private void buttonSaveChanges_Click(object sender, EventArgs e)
         {
-            tableSynchronizer.SaveChanges();
+            _tableSynchronizer.SaveChanges();
 
-            foreach (DataGridViewRow row in dataGridView1.Rows)
-            {
-                foreach (DataGridViewCell cell in row.Cells)
-                {
-                    cell.Style.BackColor = Color.White;
-                }
-            }
+            // Сбрасываем фон всех ячеек в белый после сохранения
+            DataGridViewStyler.ResetAllCellsBackground(dataGridView1);
 
             MessageBox.Show("Изменения успешно сохранены");
         }
@@ -246,42 +191,12 @@ namespace AudioVideoShop
             ChangeTable(comboBox1.Text);
         }
 
-        private void ChangeTable(string nameTable)
-        {
-            tableSynchronizer.tableName = nameTable;
-            tableSynchronizer.RefreshGrid(dataGridView1, nameTable);
-            AdjustDataGridViewColumns(dataGridView1);
-
-            // Обновление колонок для поиска
-            List<string> columns = tableSynchronizer.GetColumnNames();
-            comboBox2.Items.Clear();
-            comboBox2.Items.AddRange(columns.ToArray()); // Каждое имя на новой строке
-
-        }
-
-        private void AdjustDataGridViewColumns(DataGridView dgv)
-        {
-            // Настройка авторазмера столбцов — растянуть на всю ширину
-            dgv.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
-
-            // Пройтись по всем столбцам и задать выравнивание
-            foreach (DataGridViewColumn column in dgv.Columns)
-            {
-                // Если это первый столбец, выравниваем по правому краю
-                if (column.Index == 0)
-                    column.DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
-                else
-                    column.DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleLeft; // Остальные по левому краю
-            }
-        }
-
-
         private void dataGridView1_CellValueChanged(object sender, DataGridViewCellEventArgs e)
         {
             if (e.RowIndex >= 0 && e.ColumnIndex >= 0)
             {
-                DataGridViewCell cell = dataGridView1.Rows[e.RowIndex].Cells[e.ColumnIndex];
-                cell.Style.BackColor = Color.LightBlue; // Цвет для подсветки
+                var cell = dataGridView1.Rows[e.RowIndex].Cells[e.ColumnIndex];
+                DataGridViewStyler.HighlightModifiedCell(cell);
             }
         }
 
@@ -293,69 +208,40 @@ namespace AudioVideoShop
             }
         }
 
-        /// <summary>
-        /// Фильтрует строки в dataGridView1 по выбранной колонке и тексту поиска.
-        /// Работает для любых типов столбцов за счёт конвертации в строку.
-        /// </summary>
-        private void ApplySearchFilter()
-        {
-            // Проверяем выбор колонки
-            string column = comboBox2.SelectedItem?.ToString();
-            if (string.IsNullOrEmpty(column))
-            {
-                MessageBox.Show("Пожалуйста, выберите колонку для поиска.");
-                return;
-            }
-
-            // Текст для поиска
-            string searchText = textBoxSearch.Text.Trim().Replace("'", "''");
-            if (string.IsNullOrEmpty(searchText))
-            {
-                MessageBox.Show("Пожалуйста, введите текст для поиска.");
-                return;
-            }
-
-            // Получаем DataTable из грида
-            if (!(dataGridView1.DataSource is DataTable dt))
-                return;
-
-            try
-            {
-                // Конвертируем содержимое ANY-столбца в строку и применяем LIKE
-                string filter = $"Convert([{column}], 'System.String') LIKE '%{searchText}%'";
-                dt.DefaultView.RowFilter = filter;
-            }
-            catch (EvaluateException ex)
-            {
-                // На случай, если Convert не сработает — просто сбрасываем фильтр и ругаемся
-                dt.DefaultView.RowFilter = string.Empty;
-                MessageBox.Show($"Ошибка при фильтрации: {ex.Message}");
-            }
-        }
-
-
-        /// <summary>
-        /// Сбрасывает фильтр и возвращает таблицу к исходному (полностью загруженному) виду.
-        /// </summary>
-        private void ClearSearchFilter()
-        {
-            // Очищаем текст и фильтр
-            textBoxSearch.Clear();
-
-            if (dataGridView1.DataSource is DataTable dt)
-            {
-                dt.DefaultView.RowFilter = string.Empty;
-            }
-        }
-
         private void buttonSearch_Click(object sender, EventArgs e)
         {
-            ApplySearchFilter();
+            string column = comboBox2.SelectedItem?.ToString();
+            string searchText = textBoxSearch.Text.Trim();
+            _searchHelper.ApplySearchFilter(dataGridView1, column, searchText);
         }
 
         private void buttonClearSearch_Click(object sender, EventArgs e)
         {
-            ClearSearchFilter();
+            textBoxSearch.Clear();
+            _searchHelper.ClearSearchFilter(dataGridView1);
         }
+
+        #endregion
+
+        #region Private Helpers
+
+        /// <summary>
+        /// Меняет таблицу в админке и обновляет колонки для поиска
+        /// </summary>
+        private void ChangeTable(string nameTable)
+        {
+            _tableSynchronizer.tableName = nameTable;
+            _tableSynchronizer.RefreshGrid(dataGridView1, nameTable);
+
+            // Настраиваем колонки (авторазмер, выравнивание)
+            DataGridViewStyler.AdjustColumns(dataGridView1);
+
+            // Обновление списка колонок для поиска
+            var columns = _tableSynchronizer.GetColumnNames();
+            comboBox2.Items.Clear();
+            comboBox2.Items.AddRange(columns.ToArray());
+        }
+
+        #endregion
     }
 }
